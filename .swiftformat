@@ -1,0 +1,15 @@
+# Отключаем следующие правила:
+--disable void, trailingCommas, unusedArguments, enumNamespaces
+--maxwidth 120
+--wraparguments before-first
+--wrapparameters before-first
+--wrapcollections before-first
+--indent 4
+
+# Генерируем хедер
+--header "{file}\nCopyright © SolovevAA. All rights reserved."
+
+# Отключаем отступ
+--ifdef no-indent
+
+--swiftversion 5.3

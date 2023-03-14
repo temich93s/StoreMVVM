@@ -8,17 +8,26 @@
 
 /* Begin PBXBuildFile section */
 		AA70FEF329C0364900CC714B /* StoreMVVMApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA70FEF229C0364900CC714B /* StoreMVVMApp.swift */; };
-		AA70FEF529C0364900CC714B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA70FEF429C0364900CC714B /* ContentView.swift */; };
 		AA70FEF729C0364B00CC714B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA70FEF629C0364B00CC714B /* Assets.xcassets */; };
 		AA70FEFA29C0364B00CC714B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA70FEF929C0364B00CC714B /* Preview Assets.xcassets */; };
+		AAB15BE029C03F2B00412F34 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB15BDF29C03F2B00412F34 /* SignInView.swift */; };
+		AAB15BE429C049B700412F34 /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AAB15BE329C0493500412F34 /* Montserrat-Regular.ttf */; };
+		AAB15BF029C04F7700412F34 /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AAB15BEF29C04F7700412F34 /* Montserrat-Bold.ttf */; };
+		AAB15BF329C057AD00412F34 /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB15BF229C057AD00412F34 /* View+Extension.swift */; };
+		AAB15BF729C066BB00412F34 /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB15BF629C066BB00412F34 /* LogInView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		AA70FEEF29C0364900CC714B /* StoreMVVM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StoreMVVM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA70FEF229C0364900CC714B /* StoreMVVMApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreMVVMApp.swift; sourceTree = "<group>"; };
-		AA70FEF429C0364900CC714B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		AA70FEF629C0364B00CC714B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AA70FEF929C0364B00CC714B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		AAB15BDF29C03F2B00412F34 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
+		AAB15BE329C0493500412F34 /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.ttf"; sourceTree = "<group>"; };
+		AAB15BE529C04ACE00412F34 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		AAB15BEF29C04F7700412F34 /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Bold.ttf"; sourceTree = "<group>"; };
+		AAB15BF229C057AD00412F34 /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
+		AAB15BF629C066BB00412F34 /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,9 +60,12 @@
 		AA70FEF129C0364900CC714B /* StoreMVVM */ = {
 			isa = PBXGroup;
 			children = (
+				AAB15BF129C0576F00412F34 /* Extensions */,
+				AAB15BE629C04B3200412F34 /* Fonts */,
+				AAB15BE129C0483600412F34 /* Screens */,
 				AA70FEF229C0364900CC714B /* StoreMVVMApp.swift */,
-				AA70FEF429C0364900CC714B /* ContentView.swift */,
 				AA70FEF629C0364B00CC714B /* Assets.xcassets */,
+				AAB15BE529C04ACE00412F34 /* Info.plist */,
 				AA70FEF829C0364B00CC714B /* Preview Content */,
 			);
 			path = StoreMVVM;
@@ -65,6 +77,64 @@
 				AA70FEF929C0364B00CC714B /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		AAB15BDE29C03E6E00412F34 /* SignIn */ = {
+			isa = PBXGroup;
+			children = (
+				AAB15BE229C0484A00412F34 /* View */,
+			);
+			path = SignIn;
+			sourceTree = "<group>";
+		};
+		AAB15BE129C0483600412F34 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				AAB15BF429C066A200412F34 /* LogIn */,
+				AAB15BDE29C03E6E00412F34 /* SignIn */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		AAB15BE229C0484A00412F34 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				AAB15BDF29C03F2B00412F34 /* SignInView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		AAB15BE629C04B3200412F34 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				AAB15BE329C0493500412F34 /* Montserrat-Regular.ttf */,
+				AAB15BEF29C04F7700412F34 /* Montserrat-Bold.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		AAB15BF129C0576F00412F34 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				AAB15BF229C057AD00412F34 /* View+Extension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		AAB15BF429C066A200412F34 /* LogIn */ = {
+			isa = PBXGroup;
+			children = (
+				AAB15BF529C066AA00412F34 /* View */,
+			);
+			path = LogIn;
+			sourceTree = "<group>";
+		};
+		AAB15BF529C066AA00412F34 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				AAB15BF629C066BB00412F34 /* LogInView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -127,6 +197,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AAB15BF029C04F7700412F34 /* Montserrat-Bold.ttf in Resources */,
+				AAB15BE429C049B700412F34 /* Montserrat-Regular.ttf in Resources */,
 				AA70FEFA29C0364B00CC714B /* Preview Assets.xcassets in Resources */,
 				AA70FEF729C0364B00CC714B /* Assets.xcassets in Resources */,
 			);
@@ -178,7 +250,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AA70FEF529C0364900CC714B /* ContentView.swift in Sources */,
+				AAB15BE029C03F2B00412F34 /* SignInView.swift in Sources */,
+				AAB15BF329C057AD00412F34 /* View+Extension.swift in Sources */,
+				AAB15BF729C066BB00412F34 /* LogInView.swift in Sources */,
 				AA70FEF329C0364900CC714B /* StoreMVVMApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -311,11 +385,13 @@
 				DEVELOPMENT_TEAM = VJ39792262;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = StoreMVVM/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -340,11 +416,13 @@
 				DEVELOPMENT_TEAM = VJ39792262;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = StoreMVVM/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

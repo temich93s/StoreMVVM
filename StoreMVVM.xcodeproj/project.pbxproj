@@ -15,6 +15,10 @@
 		AAB15BF029C04F7700412F34 /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AAB15BEF29C04F7700412F34 /* Montserrat-Bold.ttf */; };
 		AAB15BF329C057AD00412F34 /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB15BF229C057AD00412F34 /* View+Extension.swift */; };
 		AAB15BF729C066BB00412F34 /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB15BF629C066BB00412F34 /* LogInView.swift */; };
+		AAB683AD29C2DA2C007BB79E /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB683AC29C2DA2C007BB79E /* SignInViewModel.swift */; };
+		AAEC5ECF29C2C23E007066E9 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEC5ECE29C2C23E007066E9 /* Coordinator.swift */; };
+		AAEC5ED129C2C36E007066E9 /* ViewName.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEC5ED029C2C36E007066E9 /* ViewName.swift */; };
+		AAEC5ED329C2C3F9007066E9 /* CoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEC5ED229C2C3F9007066E9 /* CoordinatorView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,10 +28,14 @@
 		AA70FEF929C0364B00CC714B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		AAB15BDF29C03F2B00412F34 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		AAB15BE329C0493500412F34 /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.ttf"; sourceTree = "<group>"; };
-		AAB15BE529C04ACE00412F34 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		AAB15BE529C04ACE00412F34 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AAB15BEF29C04F7700412F34 /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Bold.ttf"; sourceTree = "<group>"; };
 		AAB15BF229C057AD00412F34 /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
 		AAB15BF629C066BB00412F34 /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
+		AAB683AC29C2DA2C007BB79E /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
+		AAEC5ECE29C2C23E007066E9 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		AAEC5ED029C2C36E007066E9 /* ViewName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewName.swift; sourceTree = "<group>"; };
+		AAEC5ED229C2C3F9007066E9 /* CoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,13 +68,10 @@
 		AA70FEF129C0364900CC714B /* StoreMVVM */ = {
 			isa = PBXGroup;
 			children = (
-				AAB15BF129C0576F00412F34 /* Extensions */,
-				AAB15BE629C04B3200412F34 /* Fonts */,
-				AAB15BE129C0483600412F34 /* Screens */,
-				AA70FEF229C0364900CC714B /* StoreMVVMApp.swift */,
-				AA70FEF629C0364B00CC714B /* Assets.xcassets */,
-				AAB15BE529C04ACE00412F34 /* Info.plist */,
+				AAEC5ED429C2C852007066E9 /* App */,
+				AAEC5ED529C2C868007066E9 /* Resources */,
 				AA70FEF829C0364B00CC714B /* Preview Content */,
+				AAB15BE529C04ACE00412F34 /* Info.plist */,
 			);
 			path = StoreMVVM;
 			sourceTree = "<group>";
@@ -82,6 +87,7 @@
 		AAB15BDE29C03E6E00412F34 /* SignIn */ = {
 			isa = PBXGroup;
 			children = (
+				AAB683AB29C2DA14007BB79E /* ViewModel */,
 				AAB15BE229C0484A00412F34 /* View */,
 			);
 			path = SignIn;
@@ -90,8 +96,8 @@
 		AAB15BE129C0483600412F34 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				AAB15BF429C066A200412F34 /* LogIn */,
 				AAB15BDE29C03E6E00412F34 /* SignIn */,
+				AAB15BF429C066A200412F34 /* LogIn */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -135,6 +141,52 @@
 				AAB15BF629C066BB00412F34 /* LogInView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		AAB683AB29C2DA14007BB79E /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				AAB683AC29C2DA2C007BB79E /* SignInViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		AAEC5E9D29C2A149007066E9 /* Coordinators */ = {
+			isa = PBXGroup;
+			children = (
+				AAEC5ED029C2C36E007066E9 /* ViewName.swift */,
+				AAEC5ECE29C2C23E007066E9 /* Coordinator.swift */,
+				AAEC5ED229C2C3F9007066E9 /* CoordinatorView.swift */,
+			);
+			path = Coordinators;
+			sourceTree = "<group>";
+		};
+		AAEC5ED429C2C852007066E9 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				AA70FEF229C0364900CC714B /* StoreMVVMApp.swift */,
+				AAB15BF129C0576F00412F34 /* Extensions */,
+				AAEC5ED729C2C996007066E9 /* Services */,
+				AAEC5E9D29C2A149007066E9 /* Coordinators */,
+				AAB15BE129C0483600412F34 /* Screens */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		AAEC5ED529C2C868007066E9 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				AA70FEF629C0364B00CC714B /* Assets.xcassets */,
+				AAB15BE629C04B3200412F34 /* Fonts */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		AAEC5ED729C2C996007066E9 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -251,7 +303,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				AAB15BE029C03F2B00412F34 /* SignInView.swift in Sources */,
+				AAEC5ED329C2C3F9007066E9 /* CoordinatorView.swift in Sources */,
+				AAEC5ED129C2C36E007066E9 /* ViewName.swift in Sources */,
 				AAB15BF329C057AD00412F34 /* View+Extension.swift in Sources */,
+				AAB683AD29C2DA2C007BB79E /* SignInViewModel.swift in Sources */,
+				AAEC5ECF29C2C23E007066E9 /* Coordinator.swift in Sources */,
 				AAB15BF729C066BB00412F34 /* LogInView.swift in Sources */,
 				AA70FEF329C0364900CC714B /* StoreMVVMApp.swift in Sources */,
 			);
@@ -391,7 +447,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -422,7 +478,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -7,7 +7,7 @@ import SwiftUI
 struct StoreMVVMApp: App {
     var body: some Scene {
         WindowGroup {
-            SignInView()
+            CoordinatorView()
         }
     }
 }

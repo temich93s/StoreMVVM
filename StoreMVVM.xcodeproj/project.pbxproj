@@ -7,9 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AA6E301C29C31B0C001B4A87 /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6E301B29C31B0C001B4A87 /* CoreDataService.swift */; };
+		AA6E301F29C31BEF001B4A87 /* CoreDataUserModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AA6E301D29C31BEF001B4A87 /* CoreDataUserModel.xcdatamodeld */; };
 		AA70FEF329C0364900CC714B /* StoreMVVMApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA70FEF229C0364900CC714B /* StoreMVVMApp.swift */; };
 		AA70FEF729C0364B00CC714B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA70FEF629C0364B00CC714B /* Assets.xcassets */; };
 		AA70FEFA29C0364B00CC714B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA70FEF929C0364B00CC714B /* Preview Assets.xcassets */; };
+		AA82CFFB29C40B49001164C3 /* LogInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA82CFFA29C40B49001164C3 /* LogInViewModel.swift */; };
 		AAB15BE029C03F2B00412F34 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB15BDF29C03F2B00412F34 /* SignInView.swift */; };
 		AAB15BE429C049B700412F34 /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AAB15BE329C0493500412F34 /* Montserrat-Regular.ttf */; };
 		AAB15BF029C04F7700412F34 /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AAB15BEF29C04F7700412F34 /* Montserrat-Bold.ttf */; };
@@ -22,10 +25,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AA6E301B29C31B0C001B4A87 /* CoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataService.swift; sourceTree = "<group>"; };
+		AA6E301E29C31BEF001B4A87 /* User.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = User.xcdatamodel; sourceTree = "<group>"; };
 		AA70FEEF29C0364900CC714B /* StoreMVVM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StoreMVVM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA70FEF229C0364900CC714B /* StoreMVVMApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreMVVMApp.swift; sourceTree = "<group>"; };
 		AA70FEF629C0364B00CC714B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AA70FEF929C0364B00CC714B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		AA82CFFA29C40B49001164C3 /* LogInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewModel.swift; sourceTree = "<group>"; };
 		AAB15BDF29C03F2B00412F34 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		AAB15BE329C0493500412F34 /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.ttf"; sourceTree = "<group>"; };
 		AAB15BE529C04ACE00412F34 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -84,6 +90,14 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		AA82CFF929C40B32001164C3 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				AA82CFFA29C40B49001164C3 /* LogInViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		AAB15BDE29C03E6E00412F34 /* SignIn */ = {
 			isa = PBXGroup;
 			children = (
@@ -130,6 +144,7 @@
 		AAB15BF429C066A200412F34 /* LogIn */ = {
 			isa = PBXGroup;
 			children = (
+				AA82CFF929C40B32001164C3 /* ViewModel */,
 				AAB15BF529C066AA00412F34 /* View */,
 			);
 			path = LogIn;
@@ -185,6 +200,8 @@
 		AAEC5ED729C2C996007066E9 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				AA6E301B29C31B0C001B4A87 /* CoreDataService.swift */,
+				AA6E301D29C31BEF001B4A87 /* CoreDataUserModel.xcdatamodeld */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -304,11 +321,14 @@
 			files = (
 				AAB15BE029C03F2B00412F34 /* SignInView.swift in Sources */,
 				AAEC5ED329C2C3F9007066E9 /* CoordinatorView.swift in Sources */,
+				AA82CFFB29C40B49001164C3 /* LogInViewModel.swift in Sources */,
 				AAEC5ED129C2C36E007066E9 /* ViewName.swift in Sources */,
 				AAB15BF329C057AD00412F34 /* View+Extension.swift in Sources */,
+				AA6E301F29C31BEF001B4A87 /* CoreDataUserModel.xcdatamodeld in Sources */,
 				AAB683AD29C2DA2C007BB79E /* SignInViewModel.swift in Sources */,
 				AAEC5ECF29C2C23E007066E9 /* Coordinator.swift in Sources */,
 				AAB15BF729C066BB00412F34 /* LogInView.swift in Sources */,
+				AA6E301C29C31B0C001B4A87 /* CoreDataService.swift in Sources */,
 				AA70FEF329C0364900CC714B /* StoreMVVMApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -514,6 +534,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		AA6E301D29C31BEF001B4A87 /* CoreDataUserModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				AA6E301E29C31BEF001B4A87 /* User.xcdatamodel */,
+			);
+			currentVersion = AA6E301E29C31BEF001B4A87 /* User.xcdatamodel */;
+			path = CoreDataUserModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = AA70FEE729C0364900CC714B /* Project object */;
 }

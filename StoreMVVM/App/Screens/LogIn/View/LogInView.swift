@@ -54,9 +54,14 @@ struct LogInView: View {
 
     @EnvironmentObject private var coordinator: Coordinator
 
-    @State private var firstNameText = ""
-    @State private var passwordText = ""
+    @Environment(\.managedObjectContext) var moc
+
+    @FetchRequest(sortDescriptors: []) var users: FetchedResults<User>
+
+    @StateObject private var viewModel = LogInViewModel()
+
     @State private var isSecured: Bool = true
+    @State private var isUserAlertShown: Bool = false
 
     @FocusState private var focusedField: LogInField?
 
@@ -66,7 +71,7 @@ struct LogInView: View {
     }
 
     private var firstNameTextFieldView: some View {
-        TextField("First name", text: $firstNameText)
+        TextField("First name", text: $viewModel.firstNameText)
             .roundedGrayStyle()
             .focused($focusedField, equals: .firstName)
             .textContentType(.givenName)
@@ -77,9 +82,9 @@ struct LogInView: View {
         ZStack(alignment: .trailing) {
             Group {
                 if isSecured {
-                    SecureField("Password", text: $passwordText)
+                    SecureField("Password", text: $viewModel.passwordText)
                 } else {
-                    TextField("Password", text: $passwordText)
+                    TextField("Password", text: $viewModel.passwordText)
                 }
             }
             Button(action: {
@@ -97,8 +102,18 @@ struct LogInView: View {
     }
 
     private var loginView: some View {
-        Button("Login") {}
-            .roundedBlueStyle()
+        Button("Login") {
+            let isUserExist = users.contains { $0.firstName == viewModel.firstNameText }
+            guard isUserExist else {
+                isUserAlertShown = true
+                return
+            }
+            // TODO: To main menu
+        }
+        .roundedBlueStyle()
+        .alert("User not exist", isPresented: $isUserAlertShown, actions: {
+            Button("Ok", role: .cancel, action: {})
+        })
     }
 }
 

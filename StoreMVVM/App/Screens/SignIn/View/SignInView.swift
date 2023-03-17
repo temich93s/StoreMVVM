@@ -61,7 +61,13 @@ struct SignInView: View {
 
     @EnvironmentObject private var coordinator: Coordinator
 
+    @Environment(\.managedObjectContext) var moc
+
+    @FetchRequest(sortDescriptors: []) var users: FetchedResults<User>
+
     @StateObject private var viewModel = SignInViewModel()
+
+    @State private var isUserAlertShown: Bool = false
 
     @FocusState private var focusedField: SignInField?
 
@@ -111,8 +117,31 @@ struct SignInView: View {
 
     private var signInButtonView: some View {
         Button("Sign in") {
-            viewModel.checkEmail()
+            guard viewModel.checkEmail() else {
+                viewModel.isEmailAlertShown = true
+                return
+            }
+            let isUserExist = users.contains { $0.firstName == viewModel.firstNameText }
+            guard !isUserExist else {
+                isUserAlertShown = true
+                return
+            }
+            let user = User(context: moc)
+            user.firstName = viewModel.firstNameText
+            user.lastName = viewModel.lastNameText
+            user.email = viewModel.emailText
+            print(user)
+            do {
+                try moc.save()
+            } catch {
+                print("ewewe")
+                print(error.localizedDescription)
+            }
+            // TODO: To main menu
         }
+        .alert("User already exist", isPresented: $isUserAlertShown, actions: {
+            Button("Ok", role: .cancel, action: {})
+        })
     }
 
     // MARK: - Private Methods

@@ -1,9 +1,9 @@
 // SignInViewModel.swift
 // Copyright © SolovevAA. All rights reserved.
 
-import Foundation
+import SwiftUI
 
-/// Вью модель экрана с мебелью
+/// Вью модель экрана регистрации
 final class SignInViewModel: ObservableObject {
     // MARK: - Public Properties
 
@@ -15,10 +15,9 @@ final class SignInViewModel: ObservableObject {
 
     // MARK: - Public Methods
 
-    @MainActor
-    func checkEmail() {
+    func checkEmail() -> Bool {
         let emailFormat = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
         let emailPredicate = NSPredicate(format: "SELF MATCHES %@", emailFormat)
-        isEmailAlertShown = !emailPredicate.evaluate(with: emailText)
+        return emailPredicate.evaluate(with: emailText)
     }
 }

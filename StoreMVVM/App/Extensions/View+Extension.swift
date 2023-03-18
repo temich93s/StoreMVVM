@@ -14,6 +14,10 @@ extension View {
     func roundedBlueStyle() -> some View {
         modifier(RoundedBlueViewModifier())
     }
+
+    func userImageStyle() -> some View {
+        modifier(UserImageViewModifier())
+    }
 }
 
 /// Модификатор серого округленного View
@@ -42,5 +46,21 @@ struct RoundedBlueViewModifier: ViewModifier {
             .foregroundColor(Color("ForegroundTextButtonColor"))
             .font(Font.custom("Montserrat-Bold", size: 15))
             .cornerRadius(13)
+    }
+}
+
+// Модификатор для изображения пользователя
+struct UserImageViewModifier: ViewModifier {
+    // MARK: - Public Methods
+
+    func body(content: Content) -> some View {
+        content
+            .frame(width: 60, height: 60)
+            .cornerRadius(30)
+            .overlay {
+                Circle()
+                    .stroke(Color("DarkGrayTextColor"), lineWidth: 1)
+            }
+            .padding(.all, 1)
     }
 }

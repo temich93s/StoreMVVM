@@ -26,6 +26,11 @@ struct StoreTabBarView: View {
                 }
                 .frame(width: UIScreen.main.bounds.width, height: 70)
             }
+            .safeAreaInset(edge: .bottom, spacing: 0) {
+                Color.clear
+                    .frame(height: 0)
+                    .background(Color("TabBarBackgroundColor"))
+            }
         }
     }
 
@@ -44,25 +49,24 @@ struct StoreTabBarView: View {
     private var tabsView: some View {
         HStack {
             ForEach(0 ..< tabBarImageNames.count) { index in
-                HStack {
-                    Button(action: {
-                        selection = index
-                    }, label: {
-                        HStack {
-                            Spacer()
-                            ZStack {
-                                if selection == index {
-                                    Circle()
-                                        .fill(Color("TabBarCircleColor"))
-                                        .frame(width: 40)
-                                }
-                                Image(tabBarImageNames[index].iconName)
-                                    .font(.system(size: 22))
+                Button(action: {
+                    selection = index
+                }, label: {
+                    HStack {
+                        Spacer()
+                        ZStack {
+                            if selection == index {
+                                Circle()
+                                    .fill(Color("TabBarCircleColor"))
+                                    .frame(width: 40)
                             }
-                            Spacer()
+                            Image(tabBarImageNames[index].iconName)
+                                .resizable()
+                                .frame(width: 20, height: 20)
                         }
-                    })
-                }
+                        Spacer()
+                    }
+                })
             }
         }
     }

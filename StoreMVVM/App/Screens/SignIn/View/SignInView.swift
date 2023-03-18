@@ -30,7 +30,6 @@ struct SignInView: View {
                     lastNameTextFieldView
                     emailTextFieldView
                     signInButtonView
-                        .roundedBlueStyle()
                 }
                 .onSubmit {
                     switch focusedField {
@@ -86,6 +85,7 @@ struct SignInView: View {
     private var titleTextView: some View {
         Text("Sign in")
             .font(Font.custom("Montserrat-Bold", size: 26))
+            .foregroundColor(Color("TitleTextColor"))
     }
 
     private var firstNameTextFieldView: some View {
@@ -116,7 +116,7 @@ struct SignInView: View {
     }
 
     private var signInButtonView: some View {
-        Button("Sign in") {
+        Button {
             guard viewModel.checkEmail() else {
                 viewModel.isEmailAlertShown = true
                 return
@@ -130,15 +130,18 @@ struct SignInView: View {
             user.firstName = viewModel.firstNameText
             user.lastName = viewModel.lastNameText
             user.email = viewModel.emailText
-            print(user)
             do {
                 try moc.save()
             } catch {
-                print("ewewe")
                 print(error.localizedDescription)
             }
-            // TODO: To main menu
+            coordinator.push(.mainMenu)
+        } label: {
+            Spacer()
+            Text("Sign in")
+            Spacer()
         }
+        .roundedBlueStyle()
         .alert("User already exist", isPresented: $isUserAlertShown, actions: {
             Button("Ok", role: .cancel, action: {})
         })

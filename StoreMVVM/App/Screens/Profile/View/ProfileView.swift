@@ -16,22 +16,19 @@ struct ProfileView: View {
 
     var body: some View {
         ZStack {
-            ZStack {
-                Color("BackgroundMainViewColor")
-                    .ignoresSafeArea()
-                VStack {
-                    headerView
-                    ScrollView {
-                        profileImageView
-                        profilePhotosPickerView
-                        userNameTextView
-                        uploadItemButtonView
-                        profileMenuListView
-                    }
+            BackgroundColorView()
+            VStack {
+                headerView
+                ScrollView {
+                    profileImageView
+                    profilePhotosPickerView
+                    userNameTextView
+                    uploadItemButtonView
+                    profileMenuListView
                 }
             }
-            .toolbar(.hidden)
         }
+        .toolbar(.hidden)
     }
 
     // MARK: - Private Properties
@@ -68,11 +65,11 @@ struct ProfileView: View {
         else {
             return Image("ProfileImageMock")
                 .resizable()
-                .userImageStyle()
+                .userImageStyle(size: 60)
         }
         return Image(uiImage: uiImage)
             .resizable()
-            .userImageStyle()
+            .userImageStyle(size: 60)
     }
 
     private var profilePhotosPickerView: some View {
@@ -120,6 +117,7 @@ struct ProfileView: View {
 
     private var profileMenuListView: some View {
         VStack {
+            // TODO: создать массив и forEach
             menuProfileView(menuText: "Trade store", imageName: "Card", menuType: .link, buttonAction: {})
             menuProfileView(menuText: "Payment method", imageName: "Card", menuType: .link, buttonAction: {})
             menuProfileView(menuText: "Balance", imageName: "Card", menuType: .balance(1593), buttonAction: {})

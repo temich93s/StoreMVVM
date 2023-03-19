@@ -16,8 +16,7 @@ struct MainTabBarView: View {
     var body: some View {
         ZStack {
             if selection == 0 {
-                // SettingsView(showTabBar: $showTabBar)
-                Text(Constants.emptyText)
+                HomeView()
             } else if selection == 1 {
                 Text(Constants.emptyText)
             } else if selection == 2 {

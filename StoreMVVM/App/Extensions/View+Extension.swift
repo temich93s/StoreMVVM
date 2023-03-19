@@ -15,8 +15,8 @@ extension View {
         modifier(RoundedBlueViewModifier())
     }
 
-    func userImageStyle() -> some View {
-        modifier(UserImageViewModifier())
+    func userImageStyle(size: CGFloat) -> some View {
+        modifier(UserImageViewModifier(size: size))
     }
 }
 
@@ -55,12 +55,22 @@ struct UserImageViewModifier: ViewModifier {
 
     func body(content: Content) -> some View {
         content
-            .frame(width: 60, height: 60)
-            .cornerRadius(30)
+            .frame(width: size, height: size)
+            .cornerRadius(size / 2)
             .overlay {
                 Circle()
                     .stroke(Color("DarkGrayTextColor"), lineWidth: 1)
             }
             .padding(.all, 1)
     }
+
+    // MARK: - Initializers
+
+    init(size: CGFloat) {
+        self.size = size
+    }
+
+    // MARK: - Private Properties
+
+    private let size: CGFloat
 }

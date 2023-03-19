@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AA0A4DA229C6CD6E008A1107 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0A4DA129C6CD6E008A1107 /* HomeViewModel.swift */; };
+		AA0A4DA529C6CDC8008A1107 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0A4DA429C6CDC8008A1107 /* Category.swift */; };
 		AA6E301C29C31B0C001B4A87 /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA6E301B29C31B0C001B4A87 /* CoreDataService.swift */; };
 		AA6E301F29C31BEF001B4A87 /* CoreDataUserModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AA6E301D29C31BEF001B4A87 /* CoreDataUserModel.xcdatamodeld */; };
 		AA70FEF329C0364900CC714B /* StoreMVVMApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA70FEF229C0364900CC714B /* StoreMVVMApp.swift */; };
@@ -24,12 +26,19 @@
 		AAB15BF329C057AD00412F34 /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB15BF229C057AD00412F34 /* View+Extension.swift */; };
 		AAB15BF729C066BB00412F34 /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB15BF629C066BB00412F34 /* LogInView.swift */; };
 		AAB683AD29C2DA2C007BB79E /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB683AC29C2DA2C007BB79E /* SignInViewModel.swift */; };
+		AAC04DF129C6AD4F0024E267 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC04DF029C6AD4F0024E267 /* HomeView.swift */; };
+		AAC04DF429C6AE630024E267 /* BackgroundColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC04DF329C6AE630024E267 /* BackgroundColorView.swift */; };
+		AAC09C5929C738CC006FB9E9 /* GrayCircleButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC09C5829C738CC006FB9E9 /* GrayCircleButtonView.swift */; };
+		AAC09C5B29C73B14006FB9E9 /* FlashSale.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC09C5A29C73B14006FB9E9 /* FlashSale.swift */; };
+		AAD2531129C6F7F500067FB7 /* LastDeal.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAD2531029C6F7F500067FB7 /* LastDeal.swift */; };
 		AAEC5ECF29C2C23E007066E9 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEC5ECE29C2C23E007066E9 /* Coordinator.swift */; };
 		AAEC5ED129C2C36E007066E9 /* ViewName.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEC5ED029C2C36E007066E9 /* ViewName.swift */; };
 		AAEC5ED329C2C3F9007066E9 /* CoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEC5ED229C2C3F9007066E9 /* CoordinatorView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AA0A4DA129C6CD6E008A1107 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		AA0A4DA429C6CDC8008A1107 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		AA6E301B29C31B0C001B4A87 /* CoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataService.swift; sourceTree = "<group>"; };
 		AA6E301E29C31BEF001B4A87 /* User.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = User.xcdatamodel; sourceTree = "<group>"; };
 		AA70FEEF29C0364900CC714B /* StoreMVVM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StoreMVVM.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -49,6 +58,11 @@
 		AAB15BF229C057AD00412F34 /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
 		AAB15BF629C066BB00412F34 /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
 		AAB683AC29C2DA2C007BB79E /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
+		AAC04DF029C6AD4F0024E267 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		AAC04DF329C6AE630024E267 /* BackgroundColorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundColorView.swift; sourceTree = "<group>"; };
+		AAC09C5829C738CC006FB9E9 /* GrayCircleButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrayCircleButtonView.swift; sourceTree = "<group>"; };
+		AAC09C5A29C73B14006FB9E9 /* FlashSale.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashSale.swift; sourceTree = "<group>"; };
+		AAD2531029C6F7F500067FB7 /* LastDeal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastDeal.swift; sourceTree = "<group>"; };
 		AAEC5ECE29C2C23E007066E9 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		AAEC5ED029C2C36E007066E9 /* ViewName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewName.swift; sourceTree = "<group>"; };
 		AAEC5ED229C2C3F9007066E9 /* CoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorView.swift; sourceTree = "<group>"; };
@@ -65,6 +79,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AA0A4DA029C6CD2C008A1107 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				AA0A4DA129C6CD6E008A1107 /* HomeViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		AA0A4DA329C6CDAC008A1107 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				AA0A4DA429C6CDC8008A1107 /* Category.swift */,
+				AAD2531029C6F7F500067FB7 /* LastDeal.swift */,
+				AAC09C5A29C73B14006FB9E9 /* FlashSale.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		AA70FEE629C0364900CC714B = {
 			isa = PBXGroup;
 			children = (
@@ -170,6 +202,7 @@
 		AAB15BE129C0483600412F34 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				AAC04DEE29C6ACBD0024E267 /* Home */,
 				AA8C08A929C5514600600C8C /* MainTabBar */,
 				AA8C08A829C550AA00600C8C /* Profile */,
 				AAB15BDE29C03E6E00412F34 /* SignIn */,
@@ -228,6 +261,33 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		AAC04DEE29C6ACBD0024E267 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				AA0A4DA329C6CDAC008A1107 /* Model */,
+				AA0A4DA029C6CD2C008A1107 /* ViewModel */,
+				AAC04DEF29C6AD3B0024E267 /* View */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		AAC04DEF29C6AD3B0024E267 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				AAC04DF029C6AD4F0024E267 /* HomeView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		AAC04DF229C6AE400024E267 /* CommonViews */ = {
+			isa = PBXGroup;
+			children = (
+				AAC04DF329C6AE630024E267 /* BackgroundColorView.swift */,
+				AAC09C5829C738CC006FB9E9 /* GrayCircleButtonView.swift */,
+			);
+			path = CommonViews;
+			sourceTree = "<group>";
+		};
 		AAEC5E9D29C2A149007066E9 /* Coordinators */ = {
 			isa = PBXGroup;
 			children = (
@@ -242,6 +302,7 @@
 			isa = PBXGroup;
 			children = (
 				AA70FEF229C0364900CC714B /* StoreMVVMApp.swift */,
+				AAC04DF229C6AE400024E267 /* CommonViews */,
 				AAB15BF129C0576F00412F34 /* Extensions */,
 				AAEC5ED729C2C996007066E9 /* Services */,
 				AAEC5E9D29C2A149007066E9 /* Coordinators */,
@@ -382,19 +443,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA0A4DA229C6CD6E008A1107 /* HomeViewModel.swift in Sources */,
 				AAB15BE029C03F2B00412F34 /* SignInView.swift in Sources */,
 				AA8C08AF29C5529300600C8C /* ProfileView.swift in Sources */,
 				AA8C08B629C5559300600C8C /* StoreBackgroundTabBarShape.swift in Sources */,
 				AAEC5ED329C2C3F9007066E9 /* CoordinatorView.swift in Sources */,
+				AAC04DF429C6AE630024E267 /* BackgroundColorView.swift in Sources */,
 				AA82CFFB29C40B49001164C3 /* LogInViewModel.swift in Sources */,
+				AAC04DF129C6AD4F0024E267 /* HomeView.swift in Sources */,
 				AAEC5ED129C2C36E007066E9 /* ViewName.swift in Sources */,
 				AAB15BF329C057AD00412F34 /* View+Extension.swift in Sources */,
 				AA6E301F29C31BEF001B4A87 /* CoreDataUserModel.xcdatamodeld in Sources */,
+				AA0A4DA529C6CDC8008A1107 /* Category.swift in Sources */,
 				AAB683AD29C2DA2C007BB79E /* SignInViewModel.swift in Sources */,
 				AA8C08AC29C5515C00600C8C /* MainTabBarView.swift in Sources */,
+				AAD2531129C6F7F500067FB7 /* LastDeal.swift in Sources */,
 				AAEC5ECF29C2C23E007066E9 /* Coordinator.swift in Sources */,
 				AAB15BF729C066BB00412F34 /* LogInView.swift in Sources */,
+				AAC09C5B29C73B14006FB9E9 /* FlashSale.swift in Sources */,
 				AA6E301C29C31B0C001B4A87 /* CoreDataService.swift in Sources */,
+				AAC09C5929C738CC006FB9E9 /* GrayCircleButtonView.swift in Sources */,
 				AA8C08B229C5540400600C8C /* TabItem.swift in Sources */,
 				AA70FEF329C0364900CC714B /* StoreMVVMApp.swift in Sources */,
 				AA8C08B429C554BE00600C8C /* StoreTabBarView.swift in Sources */,

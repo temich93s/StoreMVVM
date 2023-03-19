@@ -57,7 +57,7 @@ struct StoreTabBarView: View {
                         ZStack {
                             if selection == index {
                                 Circle()
-                                    .fill(Color("TabBarCircleColor"))
+                                    .fill(Color("LightGrayCircleColor"))
                                     .frame(width: 40)
                             }
                             Image(tabBarImageNames[index].iconName)

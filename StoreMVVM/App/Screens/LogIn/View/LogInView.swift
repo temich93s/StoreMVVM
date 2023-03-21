@@ -16,8 +16,7 @@ struct LogInView: View {
 
     var body: some View {
         ZStack {
-            Color("BackgroundMainViewColor")
-                .ignoresSafeArea()
+            BackgroundColorView()
             VStack {
                 Spacer()
                     .frame(height: 100)
@@ -68,6 +67,7 @@ struct LogInView: View {
     private var titleTextView: some View {
         Text("Welcome back")
             .font(Font.custom("Montserrat-Bold", size: 26))
+            .foregroundColor(Color("TitleTextColor"))
     }
 
     private var firstNameTextFieldView: some View {
@@ -102,13 +102,19 @@ struct LogInView: View {
     }
 
     private var loginView: some View {
-        Button("Login") {
-            let isUserExist = users.contains { $0.firstName == viewModel.firstNameText }
-            guard isUserExist else {
-                isUserAlertShown = true
-                return
+        HStack {
+            Button {
+                let isUserExist = users.contains { $0.firstName == viewModel.firstNameText }
+                guard isUserExist else {
+                    isUserAlertShown = true
+                    return
+                }
+                coordinator.push(.mainMenu)
+            } label: {
+                Spacer()
+                Text("Login")
+                Spacer()
             }
-            // TODO: To main menu
         }
         .roundedBlueStyle()
         .alert("User not exist", isPresented: $isUserAlertShown, actions: {

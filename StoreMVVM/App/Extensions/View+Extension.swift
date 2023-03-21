@@ -14,6 +14,10 @@ extension View {
     func roundedBlueStyle() -> some View {
         modifier(RoundedBlueViewModifier())
     }
+
+    func userImageStyle(size: CGFloat) -> some View {
+        modifier(UserImageViewModifier(size: size))
+    }
 }
 
 /// Модификатор серого округленного View
@@ -43,4 +47,30 @@ struct RoundedBlueViewModifier: ViewModifier {
             .font(Font.custom("Montserrat-Bold", size: 15))
             .cornerRadius(13)
     }
+}
+
+// Модификатор для изображения пользователя
+struct UserImageViewModifier: ViewModifier {
+    // MARK: - Public Methods
+
+    func body(content: Content) -> some View {
+        content
+            .frame(width: size, height: size)
+            .cornerRadius(size / 2)
+            .overlay {
+                Circle()
+                    .stroke(Color("DarkGrayTextColor"), lineWidth: 1)
+            }
+            .padding(.all, 1)
+    }
+
+    // MARK: - Initializers
+
+    init(size: CGFloat) {
+        self.size = size
+    }
+
+    // MARK: - Private Properties
+
+    private let size: CGFloat
 }

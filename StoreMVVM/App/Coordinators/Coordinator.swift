@@ -26,6 +26,8 @@ class Coordinator: ObservableObject {
             LogInView()
         case .signIn:
             SignInView()
+        case .mainMenu:
+            MainTabBarView()
         }
     }
 }

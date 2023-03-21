@@ -158,7 +158,7 @@ struct HomeView: View {
                         .font(Font.custom("Montserrat-Bold", size: 11))
                         .foregroundColor(Color("WhiteTextColor"))
                         .multilineTextAlignment(.leading)
-                        .frame(height: 30)
+                        .frame(height: 30, alignment: .topLeading)
                 }
                 if let price = product.price {
                     Text("$ \(price, specifier: "%.2f")")

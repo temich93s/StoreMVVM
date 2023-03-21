@@ -10,7 +10,7 @@ enum ProductViewSizeType {
     /// Большой размер
     case large
 
-    // MARK: - Public Methods
+    // MARK: - Public Properties
 
     var frameWidth: CGFloat {
         switch self {

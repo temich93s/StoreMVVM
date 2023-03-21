@@ -16,21 +16,16 @@ struct StoreTabBarView: View {
     @Binding var selection: Int
 
     var body: some View {
-        ZStack(alignment: .bottom) {
-            VStack {
-                Spacer()
-                ZStack {
-                    StoreBackgroundTabBarShape(cornerRadius: 28)
-                        .fill(Color("TabBarBackgroundColor"))
-                    tabsView
-                }
-                .frame(width: UIScreen.main.bounds.width, height: 70)
-            }
-            .safeAreaInset(edge: .bottom, spacing: 0) {
-                Color.clear
-                    .frame(height: 0)
-                    .background(Color("TabBarBackgroundColor"))
-            }
+        ZStack {
+            StoreBackgroundTabBarShape(cornerRadius: 28)
+                .fill(Color("TabBarBackgroundColor"))
+            tabsView
+        }
+        .frame(width: UIScreen.main.bounds.width, height: 70)
+        .safeAreaInset(edge: .bottom, spacing: 0) {
+            Color.clear
+                .frame(height: 0)
+                .background(Color("TabBarBackgroundColor"))
         }
     }
 

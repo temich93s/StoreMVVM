@@ -12,20 +12,28 @@ struct HomeView: View {
                 headerView
                 Text("Searchbar")
                 listCategoryView(categories: mockCategories)
-                ScrollView {
-                    recomendationStoreView(name: "Latest deals")
-                    listLastDealView(lastDeals: mockLastDeals)
-                    recomendationStoreView(name: "Flash sale")
-                    listFlashSaleView(flashSale: mockFlashSale)
+                ScrollView(showsIndicators: false) {
+                    recomendationListView(
+                        categoryName: "Latest deals",
+                        products: viewModel.lastDeals,
+                        viewSize: .medium
+                    )
+                    recomendationListView(categoryName: "Flash sale", products: viewModel.flashSales, viewSize: .large)
+                    recomendationListView(categoryName: "Brands", products: viewModel.brands, viewSize: .medium)
                 }
                 .padding(.horizontal)
             }
             .searchable(text: $searchText)
         }
         .toolbar(.hidden)
+        .onAppear {
+            viewModel.fetchData()
+        }
     }
 
     // MARK: - Private Properties
+
+    @StateObject private var viewModel = HomeViewModel()
 
     @State private var searchText = ""
 
@@ -81,34 +89,140 @@ struct HomeView: View {
     private func listCategoryView(categories: [Category]) -> some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack {
-                ForEach(0 ..< categories.count) { index in
+                ForEach(0 ..< categories.count, id: \.self) { index in
                     categoryView(category: categories[index])
                 }
             }
         }
     }
 
-    private func listLastDealView(lastDeals: [LastDeal]) -> some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack {
-                ForEach(0 ..< lastDeals.count) { index in
-                    lastDealView(lastDeal: lastDeals[index])
+    private func recomendationListView(
+        categoryName: String,
+        products: [Product],
+        viewSize: ProductViewSizeType
+    ) -> some View {
+        VStack {
+            if !products.isEmpty {
+                recomendationTitleView(name: categoryName)
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack {
+                        ForEach(0 ..< products.count, id: \.self) { index in
+                            productView(product: products[index], viewSize: viewSize)
+                        }
+                    }
                 }
             }
         }
     }
 
-    private func listFlashSaleView(flashSale: [FlashSale]) -> some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack {
-                ForEach(0 ..< flashSale.count) { index in
-                    flashSaleView(flashSale: flashSale[index])
+    private func productView(product: Product, viewSize: ProductViewSizeType) -> some View {
+        Button {} label: {
+            ZStack {
+                productImageView(imageData: product.imageData, viewSize: viewSize)
+                productDescriptionView(product: product)
+                circleButtonView(viewSize: viewSize, plusButtonAction: {}, heartButtonAction: {})
+                if viewSize == .large {
+                    profileImageView(product: product)
                 }
             }
         }
+        .padding(.horizontal, 4)
     }
 
-    private func recomendationStoreView(name: String) -> some View {
+    private func productImageView(imageData: Data?, viewSize: ProductViewSizeType) -> some View {
+        createImage(imageData)
+            .resizable()
+            .scaledToFill()
+            .frame(width: viewSize.frameWidth, height: viewSize.frameHeight)
+            .clipped()
+            .cornerRadius(10)
+    }
+
+    private func productDescriptionView(product: Product) -> some View {
+        HStack {
+            VStack(alignment: .leading, spacing: 4) {
+                Spacer()
+                if let category = product.category {
+                    Text(category)
+                        .font(Font.custom("Montserrat-Bold", size: 9))
+                        .foregroundColor(Color("BlackTextColor"))
+                        .padding(.vertical, 3)
+                        .padding(.horizontal, 6)
+                        .background(
+                            RoundedRectangle(cornerRadius: 10)
+                                .foregroundColor(Color("BackgroundCategoryColor"))
+                        )
+                }
+                if let name = product.name {
+                    Text(name)
+                        .font(Font.custom("Montserrat-Bold", size: 11))
+                        .foregroundColor(Color("WhiteTextColor"))
+                        .multilineTextAlignment(.leading)
+                        .frame(height: 30)
+                }
+                if let price = product.price {
+                    Text("$ \(price, specifier: "%.2f")")
+                        .font(Font.custom("Montserrat-Bold", size: 9))
+                        .foregroundColor(Color("WhiteTextColor"))
+                }
+            }
+            .padding(.all, 5)
+            .frame(width: 100)
+            Spacer()
+        }
+    }
+
+    private func circleButtonView(
+        viewSize: ProductViewSizeType,
+        plusButtonAction: @escaping () -> (),
+        heartButtonAction: @escaping () -> ()
+    ) -> some View {
+        VStack {
+            Spacer()
+            HStack {
+                Spacer()
+                if viewSize == .large {
+                    GrayCircleButtonView(
+                        diameter: viewSize.darkHeartButtonDiameter,
+                        imageName: "DarkHeart",
+                        action: { heartButtonAction() }
+                    )
+                }
+                GrayCircleButtonView(
+                    diameter: viewSize.plusButtonDiameter,
+                    imageName: "Plus",
+                    action: { plusButtonAction() }
+                )
+            }
+        }
+        .padding(.all, 5)
+    }
+
+    private func profileImageView(product: Product) -> some View {
+        VStack {
+            HStack {
+                Image("ProfileImageMock")
+                    .resizable()
+                    .userImageStyle(size: 30)
+                Spacer()
+                if let discount = product.discount {
+                    Text("\(discount, specifier: "%.0f")% off")
+                        .font(Font.custom("Montserrat-Bold", size: 10))
+                        .foregroundColor(Color("WhiteTextColor"))
+                        .padding(.vertical, 3)
+                        .padding(.horizontal, 6)
+                        .background(
+                            RoundedRectangle(cornerRadius: 10)
+                                .foregroundColor(Color("SaleBackgroundColor"))
+                        )
+                }
+            }
+            Spacer()
+        }
+        .padding(.all, 10)
+    }
+
+    private func recomendationTitleView(name: String) -> some View {
         HStack {
             Text(name)
                 .font(Font.custom("Montserrat-Bold", size: 20))
@@ -139,112 +253,9 @@ struct HomeView: View {
         }
     }
 
-    private func lastDealView(lastDeal: LastDeal) -> some View {
-        Button {} label: {
-            ZStack {
-                Image(lastDeal.imageUrl)
-                    .resizable()
-                    .cornerRadius(10)
-                    .frame(width: 115, height: 150)
-                HStack {
-                    VStack(alignment: .leading, spacing: 4) {
-                        Spacer()
-                        Text(lastDeal.category)
-                            .font(Font.custom("Montserrat-Bold", size: 8))
-                            .foregroundColor(Color("BlackTextColor"))
-                            .padding(.vertical, 3)
-                            .padding(.horizontal, 6)
-                            .background(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .foregroundColor(Color("BackgroundCategoryColor"))
-                            )
-                        Text(lastDeal.name)
-                            .font(Font.custom("Montserrat-Bold", size: 10))
-                            .foregroundColor(Color("WhiteTextColor"))
-                            .multilineTextAlignment(.leading)
-                        Text("$ \(lastDeal.price)")
-                            .font(Font.custom("Montserrat-Bold", size: 8))
-                            .foregroundColor(Color("WhiteTextColor"))
-                    }
-                    .padding(.all, 5)
-                    .frame(width: 95, height: 150)
-                    Spacer()
-                }
-                VStack {
-                    Spacer()
-                    HStack {
-                        Spacer()
-                        GrayCircleButtonView(diameter: 20, imageName: "Plus", action: {})
-                            .padding(.all, 5)
-                    }
-                }
-            }
-        }
-        .padding(.horizontal, 4)
-    }
-
-    private func flashSaleView(flashSale: FlashSale) -> some View {
-        Button {} label: {
-            ZStack {
-                Image(flashSale.imageUrl)
-                    .resizable()
-                    .cornerRadius(10)
-                    .frame(width: 175, height: 220)
-                HStack {
-                    VStack(alignment: .leading, spacing: 4) {
-                        Spacer()
-                        Text(flashSale.category)
-                            .font(Font.custom("Montserrat-Bold", size: 8))
-                            .foregroundColor(Color("BlackTextColor"))
-                            .padding(.vertical, 3)
-                            .padding(.horizontal, 6)
-                            .background(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .foregroundColor(Color("BackgroundCategoryColor"))
-                            )
-                        Text(flashSale.name)
-                            .font(Font.custom("Montserrat-Bold", size: 12))
-                            .foregroundColor(Color("WhiteTextColor"))
-                            .multilineTextAlignment(.leading)
-                        Text("$ \(flashSale.price)")
-                            .font(Font.custom("Montserrat-Bold", size: 10))
-                            .foregroundColor(Color("WhiteTextColor"))
-                    }
-                    .padding(.all, 10)
-                    .frame(width: 100)
-                    Spacer()
-                }
-                VStack {
-                    HStack {
-                        Image("ProfileImageMock")
-                            .resizable()
-                            .userImageStyle(size: 30)
-                        Spacer()
-                        Text("\(flashSale.discount, specifier: "%.0f")% off")
-                            .font(Font.custom("Montserrat-Bold", size: 10))
-                            .foregroundColor(Color("WhiteTextColor"))
-                            .padding(.vertical, 3)
-                            .padding(.horizontal, 6)
-                            .background(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .foregroundColor(Color("SaleBackgroundColor"))
-                            )
-                    }
-                    Spacer()
-                }
-                .padding(.all, 10)
-                VStack {
-                    Spacer()
-                    HStack {
-                        Spacer()
-                        GrayCircleButtonView(diameter: 28, imageName: "DarkHeart", action: {})
-                        GrayCircleButtonView(diameter: 35, imageName: "Plus", action: {})
-                    }
-                }
-                .padding(.all, 5)
-            }
-        }
-        .padding(.horizontal, 2)
+    func createImage(_ value: Data?) -> Image {
+        let image = UIImage(data: value ?? Data()) ?? UIImage()
+        return Image(uiImage: image)
     }
 }
 

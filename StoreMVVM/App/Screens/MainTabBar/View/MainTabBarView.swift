@@ -15,21 +15,26 @@ struct MainTabBarView: View {
 
     var body: some View {
         ZStack {
-            if selection == 0 {
-                HomeView()
-            } else if selection == 1 {
-                Text(Constants.emptyText)
-            } else if selection == 2 {
-                Text(Constants.emptyText)
-            } else if selection == 3 {
-                Text(Constants.emptyText)
-            } else if selection == 4 {
-                ProfileView()
-            }
-            if showTabBar {
-                StoreTabBarView(selection: $selection)
+            BackgroundColorView()
+            VStack {
+                if selection == 0 {
+                    HomeView()
+                } else if selection == 1 {
+                    Text(Constants.emptyText)
+                } else if selection == 2 {
+                    Text(Constants.emptyText)
+                } else if selection == 3 {
+                    Text(Constants.emptyText)
+                } else if selection == 4 {
+                    ProfileView()
+                }
+                Spacer()
+                if showTabBar {
+                    StoreTabBarView(selection: $selection)
+                }
             }
         }
+
         // .environmentObject(climateViewModel)
     }
 

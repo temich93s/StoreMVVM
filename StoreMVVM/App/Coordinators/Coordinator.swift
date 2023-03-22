@@ -57,8 +57,8 @@ class Coordinator: ObservableObject {
         case .homeDetail:
             ZStack {
                 BackgroundColorView()
+                HomeDetailView()
                 VStack {
-                    HomeDetailView()
                     Spacer()
                     StoreTabBarView(selection: 0)
                 }

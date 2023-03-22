@@ -3,7 +3,7 @@
 
 import SwiftUI
 
-/// Кастомный таббар в дизайне теслы
+/// Кастомный таббар
 struct StoreTabBarView: View {
     // MARK: - Constants
 
@@ -12,8 +12,6 @@ struct StoreTabBarView: View {
     }
 
     // MARK: - Public Properties
-
-    @Binding var selection: Int
 
     var body: some View {
         ZStack {
@@ -31,7 +29,11 @@ struct StoreTabBarView: View {
 
     // MARK: - Private Properties
 
+    @EnvironmentObject private var coordinator: Coordinator
+
     @Namespace private var tabBarItem
+
+    var selection: Int
 
     private let tabBarImageNames = [
         TabItem(iconName: "Home"),
@@ -45,7 +47,7 @@ struct StoreTabBarView: View {
         HStack {
             ForEach(0 ..< tabBarImageNames.count) { index in
                 Button(action: {
-                    selection = index
+                    coordinator.setupTabBar(index: index)
                 }, label: {
                     HStack {
                         Spacer()
@@ -69,6 +71,6 @@ struct StoreTabBarView: View {
 
 struct StoreTabBarView_Previews: PreviewProvider {
     static var previews: some View {
-        StoreTabBarView(selection: .constant(1))
+        StoreTabBarView(selection: 1)
     }
 }

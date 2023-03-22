@@ -109,7 +109,7 @@ struct LogInView: View {
                     isUserAlertShown = true
                     return
                 }
-                coordinator.push(.mainMenu)
+                coordinator.push(.home)
             } label: {
                 Spacer()
                 Text("Login")

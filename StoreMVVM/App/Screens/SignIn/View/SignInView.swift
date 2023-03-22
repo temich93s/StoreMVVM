@@ -134,7 +134,7 @@ struct SignInView: View {
             } catch {
                 print(error.localizedDescription)
             }
-            coordinator.push(.mainMenu)
+            coordinator.push(.home)
         } label: {
             Spacer()
             Text("Sign in")

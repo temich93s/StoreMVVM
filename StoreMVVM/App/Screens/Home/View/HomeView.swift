@@ -23,15 +23,15 @@ struct HomeView: View {
                 }
                 .padding(.horizontal)
             }
-            .searchable(text: $searchText)
         }
-        .toolbar(.hidden)
         .onAppear {
             viewModel.fetchData()
         }
     }
 
     // MARK: - Private Properties
+
+    @EnvironmentObject private var coordinator: Coordinator
 
     @StateObject private var viewModel = HomeViewModel()
 
@@ -107,7 +107,11 @@ struct HomeView: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
                         ForEach(0 ..< products.count, id: \.self) { index in
-                            productView(product: products[index], viewSize: viewSize)
+                            productView(
+                                product: products[index],
+                                viewSize: viewSize,
+                                buttonAction: { coordinator.push(.homeDetail) }
+                            )
                         }
                     }
                 }
@@ -115,8 +119,12 @@ struct HomeView: View {
         }
     }
 
-    private func productView(product: Product, viewSize: ProductViewSizeType) -> some View {
-        Button {} label: {
+    private func productView(
+        product: Product,
+        viewSize: ProductViewSizeType,
+        buttonAction: @escaping () -> ()
+    ) -> some View {
+        Button { buttonAction() } label: {
             ZStack {
                 productImageView(imageData: product.imageData, viewSize: viewSize)
                 productDescriptionView(product: product)

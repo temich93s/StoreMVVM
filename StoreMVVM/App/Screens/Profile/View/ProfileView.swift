@@ -147,7 +147,7 @@ struct ProfileView: View {
             HStack {
                 ZStack {
                     Circle()
-                        .fill(Color("TabBarCircleColor"))
+                        .fill(Color("LightGrayCircleColor"))
                         .frame(width: 40)
                     Image(imageName)
                 }

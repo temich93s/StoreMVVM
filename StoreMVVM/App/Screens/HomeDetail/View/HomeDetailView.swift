@@ -11,7 +11,7 @@ struct HomeDetailView: View {
             if viewModel.productDetail != nil {
                 VStack {
                     ScrollView(showsIndicators: false) {
-                        largeImageProductView(imageName: "FrontSneakers", heartButtonAction: {}, shareButtonAction: {})
+                        largeImageProductView
                         smallImagesProductView()
                             .padding(.vertical, 30)
                         descriptionProductView()
@@ -54,32 +54,41 @@ struct HomeDetailView: View {
 
     // MARK: - Private Methods
 
-    private func largeImageProductView(
-        imageName: String,
-        heartButtonAction: @escaping () -> (),
-        shareButtonAction: @escaping () -> ()
-    ) -> some View {
+    private var largeImageProductView: some View {
         ZStack {
-            HStack {
-                Image(imageName)
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 330, height: 280)
-                    .clipped()
-                    .cornerRadius(10)
-                Spacer()
-            }
-            .offset(x: -10)
-            VStack(alignment: .leading) {
-                Spacer()
+            if let imageData = viewModel.productDetail?.imageData?[viewModel.selectedImageIndex] {
                 HStack {
-                    Spacer()
-                        .frame(width: 300)
-                    productButtonsGroupView(heartButtonAction: heartButtonAction, shareButtonAction: shareButtonAction)
+                    createImage(imageData)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 330, height: 280)
+                        .clipped()
+                        .cornerRadius(10)
+                        .gesture(
+                            DragGesture(minimumDistance: 0, coordinateSpace: .local)
+                                .onEnded { value in
+                                    if value.translation.width < 0 {
+                                        viewModel.leftSwipeAction()
+                                    }
+                                    if value.translation.width > 0 {
+                                        viewModel.rightSwipeAction()
+                                    }
+                                }
+                        )
                     Spacer()
                 }
-                Spacer()
-                    .frame(height: 30)
+                .offset(x: -10)
+                VStack(alignment: .leading) {
+                    Spacer()
+                    HStack {
+                        Spacer()
+                            .frame(width: 300)
+                        productButtonsGroupView(heartButtonAction: {}, shareButtonAction: {})
+                        Spacer()
+                    }
+                    Spacer()
+                        .frame(height: 30)
+                }
             }
         }
     }
@@ -118,38 +127,42 @@ struct HomeDetailView: View {
     private func smallImagesProductView() -> some View {
         HStack {
             Spacer()
-            Button {
-                // action
-            } label: {
-                Image("LeadingSneakers")
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 67, height: 38)
-                    .clipped()
-                    .cornerRadius(10)
-            }
-            Button {
-                // action
-            } label: {
-                Image("FrontSneakers")
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 85, height: 45)
-                    .clipped()
-                    .cornerRadius(10)
-                    .shadow(radius: 3, x: 0, y: 5)
-            }
-            Button {
-                // action
-            } label: {
-                Image("TrailingSneakers")
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 67, height: 38)
-                    .clipped()
-                    .cornerRadius(10)
+            if let imagesData = viewModel.productDetail?.imageData {
+                HStack {
+                    ForEach(0 ..< imagesData.count) { index in
+                        smallImageProductView(index: index)
+                            .frame(width: 85, height: 45)
+                    }
+                }
             }
             Spacer()
+        }
+    }
+
+    private func smallImageProductView(index: Int) -> some View {
+        Button {
+            viewModel.setupImageIndex(index: index)
+        } label: {
+            HStack {
+                if let imageData = viewModel.productDetail?.imageData?[index] {
+                    Spacer()
+                    createImage(imageData)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(
+                            width: viewModel.selectedImageIndex == index ? 85 : 67,
+                            height: viewModel.selectedImageIndex == index ? 45 : 38
+                        )
+                        .clipped()
+                        .cornerRadius(10)
+                        .shadow(
+                            radius: viewModel.selectedImageIndex == index ? 3 : 0,
+                            x: 0,
+                            y: viewModel.selectedImageIndex == index ? 5 : 0
+                        )
+                    Spacer()
+                }
+            }
         }
     }
 
@@ -255,7 +268,7 @@ struct HomeDetailView: View {
                         }
                     }
                     Button {
-                        // action
+                        coordinator.push(.addToCard)
                     } label: {
                         HStack {
                             Spacer()

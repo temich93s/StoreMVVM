@@ -13,7 +13,9 @@ final class NetworkService {
         static let emptyText = ""
     }
 
-    private let fetchGroup = DispatchGroup()
+    private let productDispatchGroup = DispatchGroup()
+    private let productDetailDispatchGroup = DispatchGroup()
+    private let semaphore = DispatchSemaphore(value: 1)
 
     // MARK: - Public Methods
 
@@ -36,18 +38,18 @@ final class NetworkService {
                     guard var decodedData = decodedData else { return }
                     for index in 0 ..< decodedData.count {
                         guard let imageURL = decodedData[index].imageURL else { return }
-                        self.fetchGroup.enter()
+                        self.productDispatchGroup.enter()
                         self.fetchImage(queryText: imageURL) { result in
                             switch result {
                             case let .success(data):
                                 decodedData[index].imageData = data
-                                self.fetchGroup.leave()
+                                self.productDispatchGroup.leave()
                             case let .failure(error):
                                 completion(.failure(error))
                             }
                         }
                     }
-                    self.fetchGroup.notify(queue: .main) {
+                    self.productDispatchGroup.notify(queue: .main) {
                         completion(.success(decodedData))
                     }
                 } catch {
@@ -66,8 +68,23 @@ final class NetworkService {
             if error == nil {
                 guard let data = data else { return }
                 do {
-                    let decodedData = try JSONDecoder().decode(ProductDetail.self, from: data)
-                    completion(.success(decodedData))
+                    var decodedData = try JSONDecoder().decode(ProductDetail.self, from: data)
+                    decodedData.imageData = Array(repeating: nil, count: decodedData.imageUrls.count)
+                    for index in 0 ..< decodedData.imageUrls.count {
+                        self.productDetailDispatchGroup.enter()
+                        self.fetchImage(queryText: decodedData.imageUrls[index]) { result in
+                            switch result {
+                            case let .success(data):
+                                decodedData.imageData?[index] = data
+                                self.productDetailDispatchGroup.leave()
+                            case let .failure(error):
+                                completion(.failure(error))
+                            }
+                        }
+                    }
+                    self.productDetailDispatchGroup.notify(queue: .main) {
+                        completion(.success(decodedData))
+                    }
                 } catch {
                     completion(.failure(error))
                 }

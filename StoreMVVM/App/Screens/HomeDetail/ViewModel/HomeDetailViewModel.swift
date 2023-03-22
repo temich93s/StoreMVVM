@@ -13,6 +13,8 @@ final class HomeDetailViewModel: ObservableObject {
 
     @Published var selectedColorIndex = 0
 
+    @Published var selectedImageIndex = 0
+
     var networkService = NetworkService()
 
     // MARK: - Public Methods
@@ -43,5 +45,22 @@ final class HomeDetailViewModel: ObservableObject {
 
     func setupColorIndex(index: Int) {
         selectedColorIndex = index
+    }
+
+    func setupImageIndex(index: Int) {
+        selectedImageIndex = index
+    }
+
+    func rightSwipeAction() {
+        if selectedImageIndex > 0 {
+            selectedImageIndex -= 1
+        }
+    }
+
+    func leftSwipeAction() {
+        guard let imageCount = productDetail?.imageData?.count else { return }
+        if selectedImageIndex < imageCount - 1 {
+            selectedImageIndex += 1
+        }
     }
 }

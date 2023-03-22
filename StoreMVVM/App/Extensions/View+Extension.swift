@@ -18,6 +18,11 @@ extension View {
     func userImageStyle(size: CGFloat) -> some View {
         modifier(UserImageViewModifier(size: size))
     }
+
+    func createImage(_ value: Data?) -> Image {
+        let image = UIImage(data: value ?? Data()) ?? UIImage()
+        return Image(uiImage: image)
+    }
 }
 
 /// Модификатор серого округленного View

@@ -64,6 +64,16 @@ class Coordinator: ObservableObject {
                 }
             }
             .toolbar(.hidden)
+        case .addToCard:
+            ZStack {
+                BackgroundColorView()
+                VStack {
+                    Spacer()
+                    Text("ADD TO CARD")
+                    Spacer()
+                    StoreTabBarView(selection: 0)
+                }
+            }
         case .home:
             ZStack {
                 BackgroundColorView()

@@ -12,9 +12,10 @@ struct ProductDetail: Codable {
     let price: Double
     let colors: [String]
     let imageUrls: [String]
+    var imageData: [Data?]?
 
     enum CodingKeys: String, CodingKey {
-        case name, description, rating
+        case name, description, rating, imageData
         case numberOfReviews = "number_of_reviews"
         case price, colors
         case imageUrls = "image_urls"

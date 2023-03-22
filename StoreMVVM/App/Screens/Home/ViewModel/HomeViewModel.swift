@@ -59,7 +59,7 @@ final class HomeViewModel: ObservableObject {
 
     private func fetchData(queryType: QueryType) {
         fetchGroup.enter()
-        networkService.fetchData(queryType: queryType) { [weak self] result in
+        networkService.fetchProductData(queryType: queryType) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case let .success(data):

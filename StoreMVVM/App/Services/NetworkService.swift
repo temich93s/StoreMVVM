@@ -9,6 +9,7 @@ final class NetworkService {
 
     private enum Constants {
         static let storeQueryText = "https://run.mocky.io/v3/"
+        static let detailQueryText = "https://run.mocky.io/v3/f7f99d04-4971-45d5-92e0-70333383c239"
         static let emptyText = ""
     }
 
@@ -16,7 +17,7 @@ final class NetworkService {
 
     // MARK: - Public Methods
 
-    func fetchData(queryType: QueryType, completion: @escaping (Result<[Product], Error>) -> Void) {
+    func fetchProductData(queryType: QueryType, completion: @escaping (Result<[Product], Error>) -> Void) {
         let urlString = "\(Constants.storeQueryText)\(queryType.rawValue)"
         print(urlString)
         guard let url = URL(string: urlString) else { return }
@@ -49,6 +50,24 @@ final class NetworkService {
                     self.fetchGroup.notify(queue: .main) {
                         completion(.success(decodedData))
                     }
+                } catch {
+                    completion(.failure(error))
+                }
+            } else {
+                guard let error = error else { return }
+                completion(.failure(error))
+            }
+        }.resume()
+    }
+
+    func fetchProductDetailData(completion: @escaping (Result<ProductDetail, Error>) -> Void) {
+        guard let url = URL(string: "\(Constants.detailQueryText)") else { return }
+        URLSession.shared.dataTask(with: url) { data, _, error in
+            if error == nil {
+                guard let data = data else { return }
+                do {
+                    let decodedData = try JSONDecoder().decode(ProductDetail.self, from: data)
+                    completion(.success(decodedData))
                 } catch {
                     completion(.failure(error))
                 }

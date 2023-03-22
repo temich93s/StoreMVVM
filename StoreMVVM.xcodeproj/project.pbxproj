@@ -24,6 +24,9 @@
 		AA8C08B429C554BE00600C8C /* StoreTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8C08B329C554BE00600C8C /* StoreTabBarView.swift */; };
 		AA8C08B629C5559300600C8C /* StoreBackgroundTabBarShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA8C08B529C5559300600C8C /* StoreBackgroundTabBarShape.swift */; };
 		AA90C3AB29CA74CB00DFE4F0 /* HomeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA90C3AA29CA74CB00DFE4F0 /* HomeDetailView.swift */; };
+		AA9FE95629CADD1500F9ECEB /* ProductDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9FE95529CADD1500F9ECEB /* ProductDetail.swift */; };
+		AA9FE95929CAE3DB00F9ECEB /* HomeDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9FE95829CAE3DB00F9ECEB /* HomeDetailViewModel.swift */; };
+		AA9FE95B29CAEB7700F9ECEB /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9FE95A29CAEB7700F9ECEB /* Color+Extension.swift */; };
 		AAB15BE029C03F2B00412F34 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB15BDF29C03F2B00412F34 /* SignInView.swift */; };
 		AAB15BE429C049B700412F34 /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AAB15BE329C0493500412F34 /* Montserrat-Regular.ttf */; };
 		AAB15BF029C04F7700412F34 /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AAB15BEF29C04F7700412F34 /* Montserrat-Bold.ttf */; };
@@ -58,6 +61,9 @@
 		AA8C08B329C554BE00600C8C /* StoreTabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreTabBarView.swift; sourceTree = "<group>"; };
 		AA8C08B529C5559300600C8C /* StoreBackgroundTabBarShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreBackgroundTabBarShape.swift; sourceTree = "<group>"; };
 		AA90C3AA29CA74CB00DFE4F0 /* HomeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDetailView.swift; sourceTree = "<group>"; };
+		AA9FE95529CADD1500F9ECEB /* ProductDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetail.swift; sourceTree = "<group>"; };
+		AA9FE95829CAE3DB00F9ECEB /* HomeDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDetailViewModel.swift; sourceTree = "<group>"; };
+		AA9FE95A29CAEB7700F9ECEB /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
 		AAB15BDF29C03F2B00412F34 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		AAB15BE329C0493500412F34 /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Regular.ttf"; sourceTree = "<group>"; };
 		AAB15BE529C04ACE00412F34 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -207,6 +213,8 @@
 		AA90C3A829CA745E00DFE4F0 /* HomeDetail */ = {
 			isa = PBXGroup;
 			children = (
+				AA9FE95429CADCDE00F9ECEB /* Model */,
+				AA9FE95729CAE3C000F9ECEB /* ViewModel */,
 				AA90C3A929CA748200DFE4F0 /* View */,
 			);
 			path = HomeDetail;
@@ -218,6 +226,22 @@
 				AA90C3AA29CA74CB00DFE4F0 /* HomeDetailView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		AA9FE95429CADCDE00F9ECEB /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				AA9FE95529CADD1500F9ECEB /* ProductDetail.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		AA9FE95729CAE3C000F9ECEB /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				AA9FE95829CAE3DB00F9ECEB /* HomeDetailViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		AAB15BDE29C03E6E00412F34 /* SignIn */ = {
@@ -263,6 +287,7 @@
 			isa = PBXGroup;
 			children = (
 				AAB15BF229C057AD00412F34 /* View+Extension.swift */,
+				AA9FE95A29CAEB7700F9ECEB /* Color+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -479,9 +504,11 @@
 				AA71EAA029C9B1E800C63FE7 /* Products.swift in Sources */,
 				AA0A4DA229C6CD6E008A1107 /* HomeViewModel.swift in Sources */,
 				AAB15BE029C03F2B00412F34 /* SignInView.swift in Sources */,
+				AA9FE95929CAE3DB00F9ECEB /* HomeDetailViewModel.swift in Sources */,
 				AA8C08AF29C5529300600C8C /* ProfileView.swift in Sources */,
 				AA8C08B629C5559300600C8C /* StoreBackgroundTabBarShape.swift in Sources */,
 				AAEC5ED329C2C3F9007066E9 /* CoordinatorView.swift in Sources */,
+				AA9FE95B29CAEB7700F9ECEB /* Color+Extension.swift in Sources */,
 				AA71EA9B29C971BE00C63FE7 /* NetworkService.swift in Sources */,
 				AAC04DF429C6AE630024E267 /* BackgroundColorView.swift in Sources */,
 				AA82CFFB29C40B49001164C3 /* LogInViewModel.swift in Sources */,
@@ -496,6 +523,7 @@
 				AAEC5ECF29C2C23E007066E9 /* Coordinator.swift in Sources */,
 				AA71EAA229C9BE8D00C63FE7 /* ProductViewSizeType.swift in Sources */,
 				AAB15BF729C066BB00412F34 /* LogInView.swift in Sources */,
+				AA9FE95629CADD1500F9ECEB /* ProductDetail.swift in Sources */,
 				AAC09C5B29C73B14006FB9E9 /* Product.swift in Sources */,
 				AA6E301C29C31B0C001B4A87 /* CoreDataService.swift in Sources */,
 				AAC09C5929C738CC006FB9E9 /* GrayCircleButtonView.swift in Sources */,

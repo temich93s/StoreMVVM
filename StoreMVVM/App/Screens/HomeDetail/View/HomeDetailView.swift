@@ -8,27 +8,31 @@ struct HomeDetailView: View {
     var body: some View {
         ZStack {
             BackgroundColorView()
-            VStack {
-                ScrollView(showsIndicators: false) {
-                    largeImageProductView(imageName: "FrontSneakers", heartButtonAction: {}, shareButtonAction: {})
-                    smallImagesProductView()
-                        .padding(.vertical, 30)
-                    descriptionProductView()
+            if viewModel.productDetail != nil {
+                VStack {
+                    ScrollView(showsIndicators: false) {
+                        largeImageProductView(imageName: "FrontSneakers", heartButtonAction: {}, shareButtonAction: {})
+                        smallImagesProductView()
+                            .padding(.vertical, 30)
+                        descriptionProductView()
+                    }
+                    .padding(.top, 16)
+                    footerProductView()
                 }
-                .padding(.top, 16)
-                footerProductView()
+                headerView
             }
-            headerView
         }
         .toolbar(.hidden)
         .onAppear {
-            // viewModel.fetchData()
+            viewModel.fetchData()
         }
     }
 
     // MARK: - Private Properties
 
     @EnvironmentObject private var coordinator: Coordinator
+
+    @StateObject private var viewModel = HomeDetailViewModel()
 
     private var headerView: some View {
         VStack {
@@ -151,84 +155,70 @@ struct HomeDetailView: View {
 
     private func descriptionProductView() -> some View {
         HStack(alignment: .top) {
-            VStack(alignment: .leading, spacing: 10) {
-                HStack {
-                    Text("New Balance Sneakers")
-                        .foregroundColor(Color("BlackTextColor"))
-                        .font(Font.custom("Montserrat-Bold", size: 18))
-                    Spacer()
-                }
-                Text("Features waterproof, fire, air resistant shoes. all changed when the country of fire attacked")
-                    .foregroundColor(Color("DarkGrayTextColor"))
-                    .font(Font.custom("Montserrat-Regular", size: 12))
-                HStack {
-                    Image("Star")
-                        .resizable()
-                        .frame(width: 10, height: 10)
-                    Text("3.4")
-                        .foregroundColor(Color("BlackTextColor"))
-                        .font(Font.custom("Montserrat-Bold", size: 12))
-                    Text("(4000 reviews)")
+            if let productDetail = viewModel.productDetail {
+                VStack(alignment: .leading, spacing: 10) {
+                    HStack {
+                        Text(productDetail.name)
+                            .foregroundColor(Color("BlackTextColor"))
+                            .font(Font.custom("Montserrat-Bold", size: 18))
+                        Spacer()
+                    }
+                    Text(productDetail.description)
                         .foregroundColor(Color("DarkGrayTextColor"))
                         .font(Font.custom("Montserrat-Regular", size: 12))
-                }
-                Text("Color:")
-                    .foregroundColor(Color("DarkGrayTextColor"))
-                    .font(Font.custom("Montserrat-Bold", size: 12))
-                HStack(spacing: 10) {
-                    Button {
-                        // action
-                    } label: {
-                        RoundedRectangle(cornerRadius: 10)
-                            .frame(width: 36, height: 24)
-                            .foregroundColor(.white)
-                            .background(
-                            )
-                            .overlay {
-                                RoundedRectangle(cornerRadius: 10)
-                                    .stroke(Color("DarkGrayTextColor"), lineWidth: 2)
-                            }
+                    HStack {
+                        Image("Star")
+                            .resizable()
+                            .frame(width: 10, height: 10)
+                        Text("\(productDetail.rating, specifier: "%.1f")")
+                            .foregroundColor(Color("BlackTextColor"))
+                            .font(Font.custom("Montserrat-Bold", size: 12))
+                        Text("(\(productDetail.numberOfReviews) reviews)")
+                            .foregroundColor(Color("DarkGrayTextColor"))
+                            .font(Font.custom("Montserrat-Regular", size: 12))
                     }
-                    Button {
-                        // action
-                    } label: {
-                        RoundedRectangle(cornerRadius: 10)
-                            .frame(width: 36, height: 24)
-                            .foregroundColor(.gray)
-                            .background(
-                            )
-                            .overlay {
-                                RoundedRectangle(cornerRadius: 10)
-                                    .stroke(Color("DarkGrayTextColor"), lineWidth: 2)
-                            }
-                    }
-                    Button {
-                        // action
-                    } label: {
-                        RoundedRectangle(cornerRadius: 10)
-                            .frame(width: 36, height: 24)
-                            .foregroundColor(.black)
-                            .background(
-                            )
-                            .overlay {
-                                RoundedRectangle(cornerRadius: 10)
-                                    .stroke(Color("DarkGrayTextColor"), lineWidth: 2)
-                            }
+                    Text("Color:")
+                        .foregroundColor(Color("DarkGrayTextColor"))
+                        .font(Font.custom("Montserrat-Bold", size: 12))
+                    HStack(spacing: 10) {
+                        ForEach(0 ..< productDetail.colors.count) { index in
+                            colorButtonView(index: index)
+                        }
                     }
                 }
-            }
-            VStack {
-                HStack {
+                VStack {
+                    HStack {
+                        Spacer()
+                        Text("$ \(productDetail.price, specifier: "%.2f")")
+                            .foregroundColor(Color("BlackTextColor"))
+                            .font(Font.custom("Montserrat-Bold", size: 16))
+                    }
                     Spacer()
-                    Text("$ 22.50")
-                        .foregroundColor(Color("BlackTextColor"))
-                        .font(Font.custom("Montserrat-Bold", size: 16))
                 }
-                Spacer()
+                .frame(width: 130)
             }
-            .frame(width: 130)
         }
         .padding(.horizontal, 20)
+    }
+
+    private func colorButtonView(index: Int) -> some View {
+        Button {
+            viewModel.setupColorIndex(index: index)
+        } label: {
+            HStack {
+                if let productDetail = viewModel.productDetail {
+                    RoundedRectangle(cornerRadius: 10)
+                        .frame(width: 36, height: 24)
+                        .foregroundColor(Color(hex: productDetail.colors[index]))
+                        .overlay {
+                            if viewModel.selectedColorIndex == index {
+                                RoundedRectangle(cornerRadius: 10)
+                                    .stroke(Color("DarkGrayTextColor"), lineWidth: 2)
+                            }
+                        }
+                }
+            }
+        }
     }
 
     private func footerProductView() -> some View {
@@ -246,26 +236,20 @@ struct HomeDetailView: View {
                         }
                         HStack {
                             Button {
-                                // action
+                                viewModel.decreaseProductCount()
                             } label: {
                                 Image("MinusWhite")
+                                    .frame(width: 45, height: 22)
                             }
-                            .frame(width: 45, height: 22)
-                            .multilineTextAlignment(.center)
                             .background(Color("BackgroundButtonColor"))
-                            .foregroundColor(Color("ForegroundTextButtonColor"))
-                            .font(Font.custom("Montserrat-Bold", size: 15))
                             .cornerRadius(13)
                             Button {
-                                // action
+                                viewModel.increaseProductCount()
                             } label: {
                                 Image("PlusWhite")
+                                    .frame(width: 45, height: 22)
                             }
-                            .frame(width: 45, height: 22)
-                            .multilineTextAlignment(.center)
                             .background(Color("BackgroundButtonColor"))
-                            .foregroundColor(Color("ForegroundTextButtonColor"))
-                            .font(Font.custom("Montserrat-Bold", size: 15))
                             .cornerRadius(13)
                             Spacer()
                         }
@@ -275,10 +259,10 @@ struct HomeDetailView: View {
                     } label: {
                         HStack {
                             Spacer()
-                            Text("#2,500")
+                            Text("# \(viewModel.productCount)")
                                 .opacity(0.5)
                             Spacer()
-                            Text("Sign in")
+                            Text("ADD TO CARD")
                             Spacer()
                         }
                     }
@@ -286,7 +270,7 @@ struct HomeDetailView: View {
                     .multilineTextAlignment(.center)
                     .background(Color("BackgroundButtonColor"))
                     .foregroundColor(Color("ForegroundTextButtonColor"))
-                    .font(Font.custom("Montserrat-Bold", size: 15))
+                    .font(Font.custom("Montserrat-Bold", size: 12))
                     .cornerRadius(13)
                 }
                 .padding(.all, 15)

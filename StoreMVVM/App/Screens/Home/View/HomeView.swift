@@ -98,7 +98,6 @@ struct HomeView<ViewModel>: View where ViewModel: HomeViewModelProtocol {
             ZStack(alignment: .trailing) {
                 TextField(Constants.lookingText, text: $viewModel.searchText)
                     .onChange(of: viewModel.searchText) { newValue in
-                        print(newValue)
                         viewModel.deferredSearchTextAction(text: newValue)
                     }
                 Button(action: {

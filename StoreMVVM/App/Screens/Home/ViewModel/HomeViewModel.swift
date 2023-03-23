@@ -89,7 +89,6 @@ final class HomeViewModel: HomeViewModelProtocol {
             let searchText = result.filter { $0.range(of: text, options: .caseInsensitive) != nil }
             DispatchQueue.main.async {
                 self.listWords = searchText
-                print(self.listWords)
             }
         }
     }

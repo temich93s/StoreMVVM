@@ -50,6 +50,8 @@ final class Builder {
     }
 
     func makeProfileView(tabBarSelection: Int) -> some View {
-        ProfileView(tabBarSelection: tabBarSelection)
+        let viewModel = ProfileViewModel()
+        let view = ProfileView(tabBarSelection: tabBarSelection, viewModel: viewModel)
+        return view
     }
 }

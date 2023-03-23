@@ -20,6 +20,8 @@ enum NameColors {
     static let storeNameTextColor = "StoreNameTextColor"
     static let saleBackgroundColor = "SaleBackgroundColor"
     static let recomendationStoreTextColor = "RecomendationStoreTextColor"
+    static let profileNameTextColor = "ProfileNameTextColor"
+    static let profileMenuTextColor = "ProfileMenuTextColor"
 }
 
 /// Названия изображений
@@ -44,6 +46,9 @@ enum NameImages {
     static let bottomChevron = "BottomChevron"
     static let darkHeart = "DarkHeart"
     static let plus = "Plus"
+    static let upload = "Upload"
+    static let chevron = "Chevron"
+    static let back = "Back"
 }
 
 /// Названия шрифтов
@@ -94,4 +99,8 @@ enum Constants {
     static let locationText = "Location"
     static let offText = "% off"
     static let viewAllText = "View all"
+    static let changePhotoText = "Change photo"
+    static let uploadItemText = "Upload item"
+    static let satriaAdhiPradanaText = "Satria Adhi Pradana"
+    static let profileText = "Profile"
 }

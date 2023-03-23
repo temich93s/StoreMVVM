@@ -4,7 +4,7 @@
 import SwiftUI
 
 /// Координатор приложения
-class Coordinator: ObservableObject {
+final class Coordinator: ObservableObject {
     // MARK: - Public Properties
 
     @Published var path = NavigationPath()

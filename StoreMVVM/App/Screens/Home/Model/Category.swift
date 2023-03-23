@@ -5,8 +5,11 @@ import Foundation
 
 /// Категории товаров
 struct Category {
+    /// id товара
     let id = UUID()
+    /// Название категории
     let categoryName: String
+    /// Название изображения категории
     let categoryImageName: String
 }
 

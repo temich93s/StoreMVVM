@@ -52,7 +52,6 @@ struct SignInView: View {
         .onTapGesture {
             UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
         }
-        // .toolbar(.hidden)
     }
 
     // MARK: - Private Properties

@@ -49,7 +49,7 @@ struct HomeDetailView<ViewModel>: View where ViewModel: HomeDetailViewModelProto
                 Button(action: {
                     coordinator.pop()
                 }, label: {
-                    Image("BackLittle")
+                    Image(NameImages.backLittle)
                         .resizable()
                 })
                 .frame(width: 6, height: 12)
@@ -108,10 +108,10 @@ struct HomeDetailView<ViewModel>: View where ViewModel: HomeDetailViewModelProto
         } label: {
             HStack {
                 Spacer()
-                Text("# \(viewModel.productCount)")
+                Text("\(Constants.sharpText) \(viewModel.productCount)")
                     .opacity(0.5)
                 Spacer()
-                Text("ADD TO CARD")
+                Text(Constants.addToCardText)
                 Spacer()
             }
         }
@@ -129,11 +129,11 @@ struct HomeDetailView<ViewModel>: View where ViewModel: HomeDetailViewModelProto
         ZStack {
             VStack {
                 Spacer()
-                productButtonView(nameImage: "ProductHeartButton", action: {})
+                productButtonView(nameImage: NameImages.productHeartButton, action: {})
                 Spacer()
-                Image("Line")
+                Image(NameImages.line)
                 Spacer()
-                productButtonView(nameImage: "ProductShareButton", action: {})
+                productButtonView(nameImage: NameImages.productShareButton, action: {})
                 Spacer()
             }
             .background(
@@ -209,17 +209,17 @@ struct HomeDetailView<ViewModel>: View where ViewModel: HomeDetailViewModelProto
                         .foregroundColor(Color(NameColors.darkGrayTextColor))
                         .font(Font.custom(NameFonts.montserratRegular, size: 12))
                     HStack {
-                        Image("Star")
+                        Image(NameImages.star)
                             .resizable()
                             .frame(width: 10, height: 10)
                         Text("\(productDetail.rating, specifier: "%.1f")")
                             .foregroundColor(Color(NameColors.blackTextColor))
                             .font(Font.custom(NameFonts.montserratBold, size: 12))
-                        Text("(\(productDetail.numberOfReviews) reviews)")
+                        Text("(\(productDetail.numberOfReviews) \(Constants.reviewsText)")
                             .foregroundColor(Color(NameColors.darkGrayTextColor))
                             .font(Font.custom(NameFonts.montserratRegular, size: 12))
                     }
-                    Text("Color:")
+                    Text(Constants.colorText)
                         .foregroundColor(Color(NameColors.darkGrayTextColor))
                         .font(Font.custom(NameFonts.montserratBold, size: 12))
                     HStack(spacing: 10) {

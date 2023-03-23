@@ -3,7 +3,8 @@
 
 import Foundation
 
-/// ListWords
+/// Список имен товаров
 struct ListWords: Codable {
+    /// Массив с именами товаров
     let words: [String]
 }

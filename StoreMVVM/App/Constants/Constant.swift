@@ -13,12 +13,24 @@ enum NameColors {
     static let foregroundTextButtonColor = "ForegroundTextButtonColor"
     static let blackTextColor = "BlackTextColor"
     static let titleTextColor = "TitleTextColor"
+    static let tabBarBackgroundColor = "TabBarBackgroundColor"
+    static let lightGrayCircleColor = "LightGrayCircleColor"
 }
 
 /// Названия изображений
 enum NameImages {
     static let plusWhite = "PlusWhite"
     static let minusWhite = "MinusWhite"
+    static let backLittle = "BackLittle"
+    static let productHeartButton = "ProductHeartButton"
+    static let productShareButton = "ProductShareButton"
+    static let line = "Line"
+    static let star = "Star"
+    static let home = "Home"
+    static let heart = "Heart"
+    static let basket = "Basket"
+    static let message = "Message"
+    static let profile = "Profile"
 }
 
 /// Названия шрифтов
@@ -37,4 +49,8 @@ enum Constants {
     static let addToCardViewText = "AddToCard View"
     static let quantityText = "Quantity:"
     static let dollarText = "$"
+    static let sharpText = "#"
+    static let addToCardText = "ADD TO CARD"
+    static let reviewsText = "reviews"
+    static let colorText = "Color:"
 }

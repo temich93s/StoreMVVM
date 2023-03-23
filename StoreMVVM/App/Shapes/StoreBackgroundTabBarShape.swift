@@ -7,7 +7,13 @@ import SwiftUI
 struct StoreBackgroundTabBarShape: Shape {
     // MARK: - Public Properties
 
-    let cornerRadius: CGFloat
+    private let cornerRadius: CGFloat
+
+    // MARK: - Initializers
+
+    init(cornerRadius: CGFloat) {
+        self.cornerRadius = cornerRadius
+    }
 
     // MARK: - Public Methods
 

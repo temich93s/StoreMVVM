@@ -3,8 +3,8 @@
 
 import Foundation
 
-/// Вью модель экрана регистрации
-final class LogInViewModel: ObservableObject {
+/// Вью модель экрана авторизации
+final class LogInViewModel: LogInViewModelProtocol {
     // MARK: - Public Properties
 
     @Published var firstNameText = ""

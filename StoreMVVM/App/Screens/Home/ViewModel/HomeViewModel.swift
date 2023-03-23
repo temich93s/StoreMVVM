@@ -3,15 +3,15 @@
 
 import SwiftUI
 
-/// Вью модель экрана регистрации
-final class HomeViewModel: ObservableObject {
+/// Вью модель экрана cо списком продуктов
+final class HomeViewModel: HomeViewModelProtocol {
     // MARK: - Public Properties
 
     @Published var flashSales: [Product] = []
     @Published var lastDeals: [Product] = []
     @Published var brands: [Product] = []
-
-    var networkService = NetworkService()
+    @Published var listWords: [String] = []
+    @Published var searchText = ""
 
     // MARK: - Private Properties
 
@@ -44,9 +44,19 @@ final class HomeViewModel: ObservableObject {
         )
     ]
 
+    private var networkService: NetworkServiceProtocol
+
+    private var timer = Timer()
+
+    // MARK: - Initializers
+
+    init(networkService: NetworkServiceProtocol) {
+        self.networkService = networkService
+    }
+
     // MARK: - Public Methods
 
-    func fetchData() {
+    func fetchProductData() {
         fetchData(queryType: .flashSale)
         fetchData(queryType: .latest)
         fetchGroup.notify(queue: .main) { [weak self] in
@@ -55,11 +65,39 @@ final class HomeViewModel: ObservableObject {
         }
     }
 
+    func fetchListWordsData(action: @escaping ([String]) -> ()) {
+        networkService.fetchListWordsData(queryType: .listWords) { result in
+            switch result {
+            case let .success(data):
+                action(data)
+            case let .failure(error):
+                print(error)
+            }
+        }
+    }
+
+    func deferredSearchTextAction(text: String) {
+        timer.invalidate()
+        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { [weak self] _ in
+            guard let self = self else { return }
+            self.searchTextAction(text: text)
+        }
+    }
+
+    func searchTextAction(text: String) {
+        fetchListWordsData { result in
+            let searchText = result.filter { $0.range(of: text, options: .caseInsensitive) != nil }
+            DispatchQueue.main.async {
+                self.listWords = searchText
+            }
+        }
+    }
+
     // MARK: - Private Methods
 
     private func fetchData(queryType: QueryType) {
         fetchGroup.enter()
-        networkService.fetchData(queryType: queryType) { [weak self] result in
+        networkService.fetchProductData(queryType: queryType) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case let .success(data):
@@ -70,6 +108,8 @@ final class HomeViewModel: ObservableObject {
                         self.flashSales = data
                     case .latest:
                         self.lastDeals = data
+                    default:
+                        break
                     }
                 }
             case let .failure(error):

@@ -3,56 +3,53 @@
 
 import SwiftUI
 
-/// Кастомный таббар в дизайне теслы
+/// Кастомный таббар
 struct StoreTabBarView: View {
-    // MARK: - Constants
-
-    private enum Constants {
-        static var matchedGeometryEffectIdText = "tabBarItem"
-    }
-
     // MARK: - Public Properties
 
-    @Binding var selection: Int
+    var selection: Int
 
     var body: some View {
         ZStack {
+            Color.clear
             StoreBackgroundTabBarShape(cornerRadius: 28)
-                .fill(Color("TabBarBackgroundColor"))
+                .fill(Color(NameColors.tabBarBackgroundColor))
             tabsView
         }
-        .frame(width: UIScreen.main.bounds.width, height: 70)
+        .frame(height: 70)
         .safeAreaInset(edge: .bottom, spacing: 0) {
             Color.clear
                 .frame(height: 0)
-                .background(Color("TabBarBackgroundColor"))
+                .background(Color(NameColors.tabBarBackgroundColor))
         }
     }
 
     // MARK: - Private Properties
 
-    @Namespace private var tabBarItem
-
     private let tabBarImageNames = [
-        TabItem(iconName: "Home"),
-        TabItem(iconName: "Heart"),
-        TabItem(iconName: "Basket"),
-        TabItem(iconName: "Message"),
-        TabItem(iconName: "Profile")
+        TabItem(iconName: NameImages.home),
+        TabItem(iconName: NameImages.heart),
+        TabItem(iconName: NameImages.basket),
+        TabItem(iconName: NameImages.message),
+        TabItem(iconName: NameImages.profile)
     ]
+
+    @EnvironmentObject private var coordinator: Coordinator
+
+    @Namespace private var tabBarItem
 
     private var tabsView: some View {
         HStack {
             ForEach(0 ..< tabBarImageNames.count) { index in
                 Button(action: {
-                    selection = index
+                    coordinator.pushFromTabBar(index: index)
                 }, label: {
                     HStack {
                         Spacer()
                         ZStack {
                             if selection == index {
                                 Circle()
-                                    .fill(Color("LightGrayCircleColor"))
+                                    .fill(Color(NameColors.lightGrayCircleColor))
                                     .frame(width: 40)
                             }
                             Image(tabBarImageNames[index].iconName)
@@ -69,6 +66,6 @@ struct StoreTabBarView: View {
 
 struct StoreTabBarView_Previews: PreviewProvider {
     static var previews: some View {
-        StoreTabBarView(selection: .constant(1))
+        StoreTabBarView(selection: 1)
     }
 }

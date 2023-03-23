@@ -4,7 +4,7 @@
 import SwiftUI
 
 /// Экран входа
-struct LogInView: View {
+struct LogInView<ViewModel>: View where ViewModel: LogInViewModelProtocol {
     // MARK: - Enums
 
     enum LogInField {
@@ -12,7 +12,13 @@ struct LogInView: View {
         case password
     }
 
-    // MARK: - Public Methods
+    // MARK: - Public Properties
+
+    @Environment(\.managedObjectContext) var moc
+
+    @FetchRequest(sortDescriptors: []) var users: FetchedResults<User>
+
+    @StateObject var viewModel: ViewModel
 
     var body: some View {
         ZStack {
@@ -46,18 +52,11 @@ struct LogInView: View {
         .onTapGesture {
             UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
         }
-        // .toolbar(.hidden)
     }
 
     // MARK: - Private Properties
 
     @EnvironmentObject private var coordinator: Coordinator
-
-    @Environment(\.managedObjectContext) var moc
-
-    @FetchRequest(sortDescriptors: []) var users: FetchedResults<User>
-
-    @StateObject private var viewModel = LogInViewModel()
 
     @State private var isSecured: Bool = true
     @State private var isUserAlertShown: Bool = false
@@ -65,13 +64,13 @@ struct LogInView: View {
     @FocusState private var focusedField: LogInField?
 
     private var titleTextView: some View {
-        Text("Welcome back")
-            .font(Font.custom("Montserrat-Bold", size: 26))
-            .foregroundColor(Color("TitleTextColor"))
+        Text(Constants.welcomeBackText)
+            .font(Font.custom(NameFonts.montserratBold, size: 26))
+            .foregroundColor(Color(NameColors.titleTextColor))
     }
 
     private var firstNameTextFieldView: some View {
-        TextField("First name", text: $viewModel.firstNameText)
+        TextField(Constants.firstNameText, text: $viewModel.firstNameText)
             .roundedGrayStyle()
             .focused($focusedField, equals: .firstName)
             .textContentType(.givenName)
@@ -82,16 +81,16 @@ struct LogInView: View {
         ZStack(alignment: .trailing) {
             Group {
                 if isSecured {
-                    SecureField("Password", text: $viewModel.passwordText)
+                    SecureField(Constants.passwordText, text: $viewModel.passwordText)
                 } else {
-                    TextField("Password", text: $viewModel.passwordText)
+                    TextField(Constants.passwordText, text: $viewModel.passwordText)
                 }
             }
             Button(action: {
                 isSecured.toggle()
             }, label: {
-                Image(systemName: self.isSecured ? "eye.slash" : "eye")
-                    .accentColor(Color("EyeColor"))
+                Image(systemName: self.isSecured ? NameImages.eyeSlash : NameImages.eye)
+                    .accentColor(Color(NameColors.eyeColor))
                     .padding(.trailing, 15)
             })
         }
@@ -109,22 +108,16 @@ struct LogInView: View {
                     isUserAlertShown = true
                     return
                 }
-                coordinator.push(.mainMenu)
+                coordinator.push(.home)
             } label: {
                 Spacer()
-                Text("Login")
+                Text(Constants.loginText)
                 Spacer()
             }
         }
         .roundedBlueStyle()
-        .alert("User not exist", isPresented: $isUserAlertShown, actions: {
-            Button("Ok", role: .cancel, action: {})
+        .alert(Constants.userNotExistText, isPresented: $isUserAlertShown, actions: {
+            Button(Constants.okText, role: .cancel, action: {})
         })
-    }
-}
-
-struct LogInView_Previews: PreviewProvider {
-    static var previews: some View {
-        LogInView()
     }
 }

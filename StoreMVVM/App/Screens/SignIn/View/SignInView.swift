@@ -4,7 +4,7 @@
 import SwiftUI
 
 /// Экран регистрации
-struct SignInView: View {
+struct SignInView<ViewModel>: View where ViewModel: SignInViewModelProtocol {
     // MARK: - Enums
 
     enum SignInField {
@@ -14,6 +14,12 @@ struct SignInView: View {
     }
 
     // MARK: - Public Methods
+
+    @Environment(\.managedObjectContext) var moc
+
+    @FetchRequest(sortDescriptors: []) var users: FetchedResults<User>
+
+    @StateObject var viewModel: ViewModel
 
     var body: some View {
         ZStack {
@@ -42,8 +48,14 @@ struct SignInView: View {
                 }
                 VStack(spacing: 50) {
                     logInView
-                    socialNetworkAccountView(imageName: "Google", socialNetworkName: "Sign in with Google")
-                    socialNetworkAccountView(imageName: "Apple", socialNetworkName: "Sign in with Apple")
+                    socialNetworkAccountView(
+                        imageName: Constants.GoogleText,
+                        socialNetworkName: Constants.signInWithGoogleText
+                    )
+                    socialNetworkAccountView(
+                        imageName: Constants.appleText,
+                        socialNetworkName: Constants.signInWithGoogleText
+                    )
                 }
                 .frame(width: 290)
                 Spacer()
@@ -52,18 +64,11 @@ struct SignInView: View {
         .onTapGesture {
             UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
         }
-        // .toolbar(.hidden)
     }
 
     // MARK: - Private Properties
 
     @EnvironmentObject private var coordinator: Coordinator
-
-    @Environment(\.managedObjectContext) var moc
-
-    @FetchRequest(sortDescriptors: []) var users: FetchedResults<User>
-
-    @StateObject private var viewModel = SignInViewModel()
 
     @State private var isUserAlertShown: Bool = false
 
@@ -71,24 +76,24 @@ struct SignInView: View {
 
     private var logInView: some View {
         HStack {
-            Text("Already have an account?")
-                .foregroundColor(Color("DarkGrayTextColor"))
-            Button("Log in") {
+            Text(Constants.haveAccountText)
+                .foregroundColor(Color(NameColors.darkGrayTextColor))
+            Button(Constants.logInText) {
                 coordinator.push(.logIn)
             }
             Spacer()
         }
-        .font(Font.custom("Montserrat-Regular", size: 10))
+        .font(Font.custom(NameFonts.montserratRegular, size: 10))
     }
 
     private var titleTextView: some View {
-        Text("Sign in")
-            .font(Font.custom("Montserrat-Bold", size: 26))
-            .foregroundColor(Color("TitleTextColor"))
+        Text(Constants.signInText)
+            .font(Font.custom(NameFonts.montserratBold, size: 26))
+            .foregroundColor(Color(NameColors.titleTextColor))
     }
 
     private var firstNameTextFieldView: some View {
-        TextField("First name", text: $viewModel.firstNameText)
+        TextField(Constants.firstNameText, text: $viewModel.firstNameText)
             .roundedGrayStyle()
             .focused($focusedField, equals: .firstName)
             .textContentType(.givenName)
@@ -96,7 +101,7 @@ struct SignInView: View {
     }
 
     private var lastNameTextFieldView: some View {
-        TextField("Last name", text: $viewModel.lastNameText)
+        TextField(Constants.lastNameText, text: $viewModel.lastNameText)
             .roundedGrayStyle()
             .focused($focusedField, equals: .lastName)
             .textContentType(.familyName)
@@ -104,13 +109,13 @@ struct SignInView: View {
     }
 
     private var emailTextFieldView: some View {
-        TextField("Email", text: $viewModel.emailText)
+        TextField(Constants.emailText, text: $viewModel.emailText)
             .roundedGrayStyle()
             .focused($focusedField, equals: .email)
             .textContentType(.emailAddress)
             .submitLabel(.done)
-            .alert("Email incorrect", isPresented: $viewModel.isEmailAlertShown, actions: {
-                Button("Ok", role: .cancel, action: {})
+            .alert(Constants.emailIncorrectText, isPresented: $viewModel.isEmailAlertShown, actions: {
+                Button(Constants.okText, role: .cancel, action: {})
             })
     }
 
@@ -132,17 +137,17 @@ struct SignInView: View {
             do {
                 try moc.save()
             } catch {
-                print(error.localizedDescription)
+                print(error)
             }
-            coordinator.push(.mainMenu)
+            coordinator.push(.home)
         } label: {
             Spacer()
-            Text("Sign in")
+            Text(Constants.signInText)
             Spacer()
         }
         .roundedBlueStyle()
-        .alert("User already exist", isPresented: $isUserAlertShown, actions: {
-            Button("Ok", role: .cancel, action: {})
+        .alert(Constants.userAlreadyExistText, isPresented: $isUserAlertShown, actions: {
+            Button(Constants.okText, role: .cancel, action: {})
         })
     }
 
@@ -155,15 +160,9 @@ struct SignInView: View {
             Image(imageName)
                 .frame(width: 24, height: 24)
             Button(socialNetworkName, action: {})
-                .foregroundColor(Color("BlackTextColor"))
-                .font(Font.custom("Montserrat-Regular", size: 15))
+                .foregroundColor(Color(NameColors.blackTextColor))
+                .font(Font.custom(NameFonts.montserratRegular, size: 15))
             Spacer()
         }
-    }
-}
-
-struct SignInView_Previews: PreviewProvider {
-    static var previews: some View {
-        SignInView()
     }
 }

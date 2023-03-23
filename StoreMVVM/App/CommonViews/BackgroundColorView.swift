@@ -5,8 +5,10 @@ import SwiftUI
 
 /// Фон основного меню
 struct BackgroundColorView: View {
+    // MARK: - Public Properties
+
     var body: some View {
-        Color("BackgroundMainViewColor")
+        Color(NameColors.backgroundMainViewColor)
             .ignoresSafeArea()
     }
 }

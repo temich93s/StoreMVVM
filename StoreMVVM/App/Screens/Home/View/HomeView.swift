@@ -4,43 +4,68 @@
 import SwiftUI
 
 /// Домашняя страница с товарами
-struct HomeView: View {
+struct HomeView<ViewModel>: View where ViewModel: HomeViewModelProtocol {
+    // MARK: - Public Properties
+
+    let tabBarSelection: Int
+
+    @StateObject var viewModel: ViewModel
+
     var body: some View {
         ZStack {
             BackgroundColorView()
             VStack {
                 headerView
-                Text("Searchbar")
-                listCategoryView(categories: mockCategories)
-                ScrollView(showsIndicators: false) {
-                    recomendationListView(
-                        categoryName: "Latest deals",
-                        products: viewModel.lastDeals,
-                        viewSize: .medium
-                    )
-                    recomendationListView(categoryName: "Flash sale", products: viewModel.flashSales, viewSize: .large)
-                    recomendationListView(categoryName: "Brands", products: viewModel.brands, viewSize: .medium)
+                ZStack {
+                    VStack {
+                        Spacer()
+                            .frame(height: 30)
+                        listCategoryView(categories: mockCategories)
+                        ScrollView(showsIndicators: false) {
+                            recomendationListView(
+                                categoryName: Constants.latestDealsText,
+                                products: viewModel.lastDeals,
+                                viewSize: .medium
+                            )
+                            recomendationListView(
+                                categoryName: Constants.flashSaleText,
+                                products: viewModel.flashSales,
+                                viewSize: .large
+                            )
+                            recomendationListView(
+                                categoryName: Constants.brandsText,
+                                products: viewModel.brands,
+                                viewSize: .medium
+                            )
+                        }
+                        .padding(.horizontal)
+                        StoreTabBarView(selection: tabBarSelection)
+                    }
+                    VStack {
+                        searchView
+                        Spacer()
+                    }
                 }
-                .padding(.horizontal)
             }
-            .searchable(text: $searchText)
+        }
+        .onAppear {
+            viewModel.fetchProductData()
+        }
+        .onTapGesture {
+            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
         }
         .toolbar(.hidden)
-        .onAppear {
-            viewModel.fetchData()
-        }
+        .ignoresSafeArea(.keyboard)
     }
 
     // MARK: - Private Properties
 
-    @StateObject private var viewModel = HomeViewModel()
-
-    @State private var searchText = ""
+    @EnvironmentObject private var coordinator: Coordinator
 
     private var headerView: some View {
         HStack(alignment: .top) {
             Button(action: {}, label: {
-                Image("HorizontalLine")
+                Image(NameImages.horizontalLine)
                     .resizable()
             })
             .frame(width: 20, height: 20)
@@ -60,25 +85,47 @@ struct HomeView: View {
 
     private var titleView: some View {
         HStack {
-            Text("Trade buy")
-                .foregroundColor(Color("BlackTextColor"))
-            Text("bata")
-                .foregroundColor(Color("StoreNameTextColor"))
+            Text(Constants.tradeBuyText)
+                .foregroundColor(Color(NameColors.blackTextColor))
+            Text(Constants.bataText)
+                .foregroundColor(Color(NameColors.storeNameTextColor))
         }
-        .font(Font.custom("Montserrat-Bold", size: 20))
+        .font(Font.custom(NameFonts.montserratBold, size: 20))
+    }
+
+    private var searchView: some View {
+        VStack(spacing: 0) {
+            ZStack(alignment: .trailing) {
+                TextField(Constants.lookingText, text: $viewModel.searchText)
+                    .onChange(of: viewModel.searchText) { newValue in
+                        viewModel.deferredSearchTextAction(text: newValue)
+                    }
+                Button(action: {
+                    viewModel.searchTextAction(text: viewModel.searchText)
+                }, label: {
+                    Image(NameImages.search)
+                        .padding(.trailing, 15)
+                })
+            }
+            .roundedGrayStyle()
+            .submitLabel(.done)
+            ForEach(0 ..< viewModel.listWords.count, id: \.self) { index in
+                resultSearchTextView(text: viewModel.listWords[index])
+            }
+        }
     }
 
     private var userProfileView: some View {
         VStack {
-            Image("ProfileImageMock")
+            Image(NameImages.profileImageMock)
                 .resizable()
                 .userImageStyle(size: 30)
             HStack {
                 Button {} label: {
-                    Text("Location")
-                        .font(Font.custom("Montserrat-Regular", size: 10))
-                        .foregroundColor(Color("DarkGrayTextColor"))
-                    Image("BottomChevron")
+                    Text(Constants.locationText)
+                        .font(Font.custom(NameFonts.montserratRegular, size: 10))
+                        .foregroundColor(Color(NameColors.darkGrayTextColor))
+                    Image(NameImages.bottomChevron)
                 }
             }
         }
@@ -94,6 +141,14 @@ struct HomeView: View {
                 }
             }
         }
+        .padding(.vertical, 10)
+    }
+
+    private func resultSearchTextView(text: String) -> some View {
+        Button {} label: {
+            Text(text)
+                .roundedGrayStyle()
+        }
     }
 
     private func recomendationListView(
@@ -107,7 +162,11 @@ struct HomeView: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
                         ForEach(0 ..< products.count, id: \.self) { index in
-                            productView(product: products[index], viewSize: viewSize)
+                            productView(
+                                product: products[index],
+                                viewSize: viewSize,
+                                buttonAction: { coordinator.push(.homeDetail) }
+                            )
                         }
                     }
                 }
@@ -115,8 +174,12 @@ struct HomeView: View {
         }
     }
 
-    private func productView(product: Product, viewSize: ProductViewSizeType) -> some View {
-        Button {} label: {
+    private func productView(
+        product: Product,
+        viewSize: ProductViewSizeType,
+        buttonAction: @escaping () -> ()
+    ) -> some View {
+        Button { buttonAction() } label: {
             ZStack {
                 productImageView(imageData: product.imageData, viewSize: viewSize)
                 productDescriptionView(product: product)
@@ -144,26 +207,26 @@ struct HomeView: View {
                 Spacer()
                 if let category = product.category {
                     Text(category)
-                        .font(Font.custom("Montserrat-Bold", size: 9))
-                        .foregroundColor(Color("BlackTextColor"))
+                        .font(Font.custom(NameFonts.montserratBold, size: 9))
+                        .foregroundColor(Color(NameColors.blackTextColor))
                         .padding(.vertical, 3)
                         .padding(.horizontal, 6)
                         .background(
                             RoundedRectangle(cornerRadius: 10)
-                                .foregroundColor(Color("BackgroundCategoryColor"))
+                                .foregroundColor(Color(NameColors.backgroundCategoryColor))
                         )
                 }
                 if let name = product.name {
                     Text(name)
-                        .font(Font.custom("Montserrat-Bold", size: 11))
-                        .foregroundColor(Color("WhiteTextColor"))
+                        .font(Font.custom(NameFonts.montserratBold, size: 11))
+                        .foregroundColor(Color(NameColors.whiteTextColor))
                         .multilineTextAlignment(.leading)
                         .frame(height: 30, alignment: .topLeading)
                 }
                 if let price = product.price {
-                    Text("$ \(price, specifier: "%.2f")")
-                        .font(Font.custom("Montserrat-Bold", size: 9))
-                        .foregroundColor(Color("WhiteTextColor"))
+                    Text("\(Constants.dollarText) \(price, specifier: "%.2f")")
+                        .font(Font.custom(NameFonts.montserratBold, size: 9))
+                        .foregroundColor(Color(NameColors.whiteTextColor))
                 }
             }
             .padding(.all, 5)
@@ -184,13 +247,13 @@ struct HomeView: View {
                 if viewSize == .large {
                     GrayCircleButtonView(
                         diameter: viewSize.darkHeartButtonDiameter,
-                        imageName: "DarkHeart",
+                        imageName: NameImages.darkHeart,
                         action: { heartButtonAction() }
                     )
                 }
                 GrayCircleButtonView(
                     diameter: viewSize.plusButtonDiameter,
-                    imageName: "Plus",
+                    imageName: NameImages.plus,
                     action: { plusButtonAction() }
                 )
             }
@@ -201,19 +264,19 @@ struct HomeView: View {
     private func profileImageView(product: Product) -> some View {
         VStack {
             HStack {
-                Image("ProfileImageMock")
+                Image(NameImages.profileImageMock)
                     .resizable()
                     .userImageStyle(size: 30)
                 Spacer()
                 if let discount = product.discount {
-                    Text("\(discount, specifier: "%.0f")% off")
-                        .font(Font.custom("Montserrat-Bold", size: 10))
-                        .foregroundColor(Color("WhiteTextColor"))
+                    Text("\(discount, specifier: "%.0f")\(Constants.offText)")
+                        .font(Font.custom(NameFonts.montserratBold, size: 10))
+                        .foregroundColor(Color(NameColors.whiteTextColor))
                         .padding(.vertical, 3)
                         .padding(.horizontal, 6)
                         .background(
                             RoundedRectangle(cornerRadius: 10)
-                                .foregroundColor(Color("SaleBackgroundColor"))
+                                .foregroundColor(Color(NameColors.saleBackgroundColor))
                         )
                 }
             }
@@ -225,13 +288,13 @@ struct HomeView: View {
     private func recomendationTitleView(name: String) -> some View {
         HStack {
             Text(name)
-                .font(Font.custom("Montserrat-Bold", size: 20))
-                .foregroundColor(Color("RecomendationStoreTextColor"))
+                .font(Font.custom(NameFonts.montserratBold, size: 20))
+                .foregroundColor(Color(NameColors.recomendationStoreTextColor))
             Spacer()
             Button {} label: {
-                Text("View all")
-                    .font(Font.custom("Montserrat-Regular", size: 12))
-                    .foregroundColor(Color("DarkGrayTextColor"))
+                Text(Constants.viewAllText)
+                    .font(Font.custom(NameFonts.montserratRegular, size: 12))
+                    .foregroundColor(Color(NameColors.darkGrayTextColor))
             }
         }
     }
@@ -241,26 +304,15 @@ struct HomeView: View {
             VStack {
                 ZStack {
                     Circle()
-                        .fill(Color("LightGrayCircleColor"))
+                        .fill(Color(NameColors.lightGrayCircleColor))
                         .frame(width: 40)
                     Image(category.categoryImageName)
                 }
                 Text(category.categoryName)
-                    .font(Font.custom("Montserrat-Regular", size: 10))
-                    .foregroundColor(Color("DarkGrayTextColor"))
+                    .font(Font.custom(NameFonts.montserratRegular, size: 10))
+                    .foregroundColor(Color(NameColors.darkGrayTextColor))
             }
             .frame(width: 65)
         }
-    }
-
-    func createImage(_ value: Data?) -> Image {
-        let image = UIImage(data: value ?? Data()) ?? UIImage()
-        return Image(uiImage: image)
-    }
-}
-
-struct HomeView_Previews: PreviewProvider {
-    static var previews: some View {
-        HomeView()
     }
 }

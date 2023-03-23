@@ -20,7 +20,7 @@ final class HomeDetailViewModel: ObservableObject {
     // MARK: - Public Methods
 
     func fetchData() {
-        networkService.fetchProductDetailData { [weak self] result in
+        networkService.fetchProductDetailData(queryType: .productDetail) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case let .success(data):

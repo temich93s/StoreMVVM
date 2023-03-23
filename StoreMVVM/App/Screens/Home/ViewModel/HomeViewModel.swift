@@ -10,12 +10,15 @@ final class HomeViewModel: ObservableObject {
     @Published var flashSales: [Product] = []
     @Published var lastDeals: [Product] = []
     @Published var brands: [Product] = []
+    @Published var searchText = ""
+    @Published var listWords: [String] = []
 
     var networkService = NetworkService()
 
     // MARK: - Private Properties
 
     private let fetchGroup = DispatchGroup()
+    private var timer = Timer()
 
     private let mockBrands = [
         Product(
@@ -46,12 +49,41 @@ final class HomeViewModel: ObservableObject {
 
     // MARK: - Public Methods
 
-    func fetchData() {
+    func fetchProductData() {
         fetchData(queryType: .flashSale)
         fetchData(queryType: .latest)
         fetchGroup.notify(queue: .main) { [weak self] in
             guard let self = self else { return }
             self.brands = self.mockBrands
+        }
+    }
+
+    func fetchListWordsData(action: @escaping ([String]) -> ()) {
+        networkService.fetchListWordsData(queryType: .listWords) { result in
+            switch result {
+            case let .success(data):
+                action(data)
+            case let .failure(error):
+                print(error)
+            }
+        }
+    }
+
+    func deferredSearchTextAction(text: String) {
+        timer.invalidate()
+        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { [weak self] _ in
+            guard let self = self else { return }
+            self.searchTextAction(text: text)
+        }
+    }
+
+    func searchTextAction(text: String) {
+        fetchListWordsData { result in
+            let searchText = result.filter { $0.range(of: text, options: .caseInsensitive) != nil }
+            DispatchQueue.main.async {
+                self.listWords = searchText
+                print(self.listWords)
+            }
         }
     }
 
@@ -70,6 +102,8 @@ final class HomeViewModel: ObservableObject {
                         self.flashSales = data
                     case .latest:
                         self.lastDeals = data
+                    default:
+                        break
                     }
                 }
             case let .failure(error):

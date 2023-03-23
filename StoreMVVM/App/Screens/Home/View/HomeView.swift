@@ -10,22 +10,38 @@ struct HomeView: View {
             BackgroundColorView()
             VStack {
                 headerView
-                Text("Searchbar")
-                listCategoryView(categories: mockCategories)
-                ScrollView(showsIndicators: false) {
-                    recomendationListView(
-                        categoryName: "Latest deals",
-                        products: viewModel.lastDeals,
-                        viewSize: .medium
-                    )
-                    recomendationListView(categoryName: "Flash sale", products: viewModel.flashSales, viewSize: .large)
-                    recomendationListView(categoryName: "Brands", products: viewModel.brands, viewSize: .medium)
+                ZStack {
+                    VStack {
+                        Spacer()
+                            .frame(height: 30)
+                        listCategoryView(categories: mockCategories)
+                        ScrollView(showsIndicators: false) {
+                            recomendationListView(
+                                categoryName: "Latest deals",
+                                products: viewModel.lastDeals,
+                                viewSize: .medium
+                            )
+                            recomendationListView(
+                                categoryName: "Flash sale",
+                                products: viewModel.flashSales,
+                                viewSize: .large
+                            )
+                            recomendationListView(categoryName: "Brands", products: viewModel.brands, viewSize: .medium)
+                        }
+                        .padding(.horizontal)
+                    }
+                    VStack {
+                        searchView
+                        Spacer()
+                    }
                 }
-                .padding(.horizontal)
             }
         }
         .onAppear {
-            viewModel.fetchData()
+            viewModel.fetchProductData()
+        }
+        .onTapGesture {
+            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
         }
     }
 
@@ -34,8 +50,6 @@ struct HomeView: View {
     @EnvironmentObject private var coordinator: Coordinator
 
     @StateObject private var viewModel = HomeViewModel()
-
-    @State private var searchText = ""
 
     private var headerView: some View {
         HStack(alignment: .top) {
@@ -68,6 +82,29 @@ struct HomeView: View {
         .font(Font.custom("Montserrat-Bold", size: 20))
     }
 
+    private var searchView: some View {
+        VStack(spacing: 0) {
+            ZStack(alignment: .trailing) {
+                TextField("What are you looking for ?", text: $viewModel.searchText)
+                    .onChange(of: viewModel.searchText) { newValue in
+                        print(newValue)
+                        viewModel.deferredSearchTextAction(text: newValue)
+                    }
+                Button(action: {
+                    viewModel.searchTextAction(text: viewModel.searchText)
+                }, label: {
+                    Image("Search")
+                        .padding(.trailing, 15)
+                })
+            }
+            .roundedGrayStyle()
+            .submitLabel(.done)
+            ForEach(0 ..< viewModel.listWords.count, id: \.self) { index in
+                resultSearchTextView(text: viewModel.listWords[index])
+            }
+        }
+    }
+
     private var userProfileView: some View {
         VStack {
             Image("ProfileImageMock")
@@ -93,6 +130,14 @@ struct HomeView: View {
                     categoryView(category: categories[index])
                 }
             }
+        }
+        .padding(.vertical, 10)
+    }
+
+    private func resultSearchTextView(text: String) -> some View {
+        Button {} label: {
+            Text(text)
+                .roundedGrayStyle()
         }
     }
 
@@ -259,11 +304,6 @@ struct HomeView: View {
             }
             .frame(width: 65)
         }
-    }
-
-    func createImage(_ value: Data?) -> Image {
-        let image = UIImage(data: value ?? Data()) ?? UIImage()
-        return Image(uiImage: image)
     }
 }
 

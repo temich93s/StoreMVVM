@@ -32,6 +32,7 @@
 		AAB15BF029C04F7700412F34 /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AAB15BEF29C04F7700412F34 /* Montserrat-Bold.ttf */; };
 		AAB15BF329C057AD00412F34 /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB15BF229C057AD00412F34 /* View+Extension.swift */; };
 		AAB15BF729C066BB00412F34 /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB15BF629C066BB00412F34 /* LogInView.swift */; };
+		AAB5F88029CBDAE5001DD248 /* ListWords.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB5F87F29CBDAE5001DD248 /* ListWords.swift */; };
 		AAB683AD29C2DA2C007BB79E /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB683AC29C2DA2C007BB79E /* SignInViewModel.swift */; };
 		AAC04DF129C6AD4F0024E267 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC04DF029C6AD4F0024E267 /* HomeView.swift */; };
 		AAC04DF429C6AE630024E267 /* BackgroundColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC04DF329C6AE630024E267 /* BackgroundColorView.swift */; };
@@ -70,6 +71,7 @@
 		AAB15BEF29C04F7700412F34 /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Bold.ttf"; sourceTree = "<group>"; };
 		AAB15BF229C057AD00412F34 /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
 		AAB15BF629C066BB00412F34 /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
+		AAB5F87F29CBDAE5001DD248 /* ListWords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListWords.swift; sourceTree = "<group>"; };
 		AAB683AC29C2DA2C007BB79E /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
 		AAC04DF029C6AD4F0024E267 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		AAC04DF329C6AE630024E267 /* BackgroundColorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundColorView.swift; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 				AA0A4DA429C6CDC8008A1107 /* Category.swift */,
 				AAC09C5A29C73B14006FB9E9 /* Product.swift */,
 				AA71EA9F29C9B1E800C63FE7 /* Products.swift */,
+				AAB5F87F29CBDAE5001DD248 /* ListWords.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -504,6 +507,7 @@
 				AA71EAA029C9B1E800C63FE7 /* Products.swift in Sources */,
 				AA0A4DA229C6CD6E008A1107 /* HomeViewModel.swift in Sources */,
 				AAB15BE029C03F2B00412F34 /* SignInView.swift in Sources */,
+				AAB5F88029CBDAE5001DD248 /* ListWords.swift in Sources */,
 				AA9FE95929CAE3DB00F9ECEB /* HomeDetailViewModel.swift in Sources */,
 				AA8C08AF29C5529300600C8C /* ProfileView.swift in Sources */,
 				AA8C08B629C5559300600C8C /* StoreBackgroundTabBarShape.swift in Sources */,

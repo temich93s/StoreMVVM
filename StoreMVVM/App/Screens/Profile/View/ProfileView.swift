@@ -14,6 +14,8 @@ struct ProfileView: View {
 
     // MARK: - Public Methods
 
+    let tabBarSelection: Int
+
     var body: some View {
         ZStack {
             BackgroundColorView()
@@ -26,6 +28,7 @@ struct ProfileView: View {
                     uploadItemButtonView
                     profileMenuListView
                 }
+                StoreTabBarView(selection: tabBarSelection)
             }
         }
         .toolbar(.hidden)
@@ -49,8 +52,8 @@ struct ProfileView: View {
             .frame(width: 20, height: 20)
             Spacer()
             Text("Profile")
-                .font(Font.custom("Montserrat-Bold", size: 20))
-                .foregroundColor(Color("BlackTextColor"))
+                .font(Font.custom(NameFonts.montserratBold, size: 20))
+                .foregroundColor(Color(NameColors.blackTextColor))
             Spacer()
             Spacer()
                 .frame(width: 20)
@@ -75,8 +78,8 @@ struct ProfileView: View {
     private var profilePhotosPickerView: some View {
         PhotosPicker(selection: $selectedPhotosPickerItem, matching: .images, photoLibrary: .shared()) {
             Text("Change photo")
-                .font(Font.custom("Montserrat-Regular", size: 10))
-                .foregroundColor(Color("DarkGrayTextColor"))
+                .font(Font.custom(NameFonts.montserratRegular, size: 10))
+                .foregroundColor(Color(NameColors.darkGrayTextColor))
         }
         .onChange(of: selectedPhotosPickerItem) { newPhotosPickerItem in
             Task {
@@ -90,7 +93,7 @@ struct ProfileView: View {
     private var userNameTextView: some View {
         Text("Satria Adhi Pradana")
             .foregroundColor(Color("ProfileNameTextColor"))
-            .font(Font.custom("Montserrat-Bold", size: 20))
+            .font(Font.custom(NameFonts.montserratBold, size: 20))
             .padding(.vertical, 10)
     }
 
@@ -153,7 +156,7 @@ struct ProfileView: View {
                 }
                 Text(menuText)
                     .foregroundColor(Color("ProfileMenuTextColor"))
-                    .font(Font.custom("Montserrat-Regular", size: 15))
+                    .font(Font.custom(NameFonts.montserratRegular, size: 15))
                 Spacer()
                 switch menuType {
                 case .link:
@@ -163,7 +166,7 @@ struct ProfileView: View {
                 case let .balance(balance):
                     Text("$ \(balance)")
                         .foregroundColor(Color("ProfileMenuTextColor"))
-                        .font(Font.custom("Montserrat-Regular", size: 15))
+                        .font(Font.custom(NameFonts.montserratRegular, size: 15))
                 }
             }
         }
@@ -174,6 +177,6 @@ struct ProfileView: View {
 
 struct ProfileView_Previews: PreviewProvider {
     static var previews: some View {
-        ProfileView()
+        ProfileView(tabBarSelection: 4)
     }
 }

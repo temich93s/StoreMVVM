@@ -72,19 +72,19 @@ struct SignInView: View {
     private var logInView: some View {
         HStack {
             Text("Already have an account?")
-                .foregroundColor(Color("DarkGrayTextColor"))
+                .foregroundColor(Color(NameColors.darkGrayTextColor))
             Button("Log in") {
                 coordinator.push(.logIn)
             }
             Spacer()
         }
-        .font(Font.custom("Montserrat-Regular", size: 10))
+        .font(Font.custom(NameFonts.montserratRegular, size: 10))
     }
 
     private var titleTextView: some View {
         Text("Sign in")
-            .font(Font.custom("Montserrat-Bold", size: 26))
-            .foregroundColor(Color("TitleTextColor"))
+            .font(Font.custom(NameFonts.montserratBold, size: 26))
+            .foregroundColor(Color(NameColors.titleTextColor))
     }
 
     private var firstNameTextFieldView: some View {
@@ -132,7 +132,7 @@ struct SignInView: View {
             do {
                 try moc.save()
             } catch {
-                print(error.localizedDescription)
+                print(error)
             }
             coordinator.push(.home)
         } label: {
@@ -155,8 +155,8 @@ struct SignInView: View {
             Image(imageName)
                 .frame(width: 24, height: 24)
             Button(socialNetworkName, action: {})
-                .foregroundColor(Color("BlackTextColor"))
-                .font(Font.custom("Montserrat-Regular", size: 15))
+                .foregroundColor(Color(NameColors.blackTextColor))
+                .font(Font.custom(NameFonts.montserratRegular, size: 15))
             Spacer()
         }
     }

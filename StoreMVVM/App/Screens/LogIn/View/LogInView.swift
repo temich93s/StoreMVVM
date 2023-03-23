@@ -66,8 +66,8 @@ struct LogInView: View {
 
     private var titleTextView: some View {
         Text("Welcome back")
-            .font(Font.custom("Montserrat-Bold", size: 26))
-            .foregroundColor(Color("TitleTextColor"))
+            .font(Font.custom(NameFonts.montserratBold, size: 26))
+            .foregroundColor(Color(NameColors.titleTextColor))
     }
 
     private var firstNameTextFieldView: some View {

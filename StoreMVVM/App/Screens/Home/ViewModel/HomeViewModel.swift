@@ -13,7 +13,7 @@ final class HomeViewModel: ObservableObject {
     @Published var searchText = ""
     @Published var listWords: [String] = []
 
-    var networkService = NetworkService()
+    var networkService = StoreNetworkService()
 
     // MARK: - Private Properties
 

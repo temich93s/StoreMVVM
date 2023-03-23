@@ -1,16 +1,11 @@
-// NetworkService.swift
+// StoreNetworkService.swift
 // Copyright © SolovevAA. All rights reserved.
 
 import Foundation
 
 /// Store API сервис
-final class NetworkService {
-    // MARK: - Constants
-
-    private enum Constants {
-        static let storeQueryText = "https://run.mocky.io/v3/"
-        static let emptyText = ""
-    }
+final class StoreNetworkService: NetworkServiceProtocol {
+    // MARK: - Private Properties
 
     private let productDispatchGroup = DispatchGroup()
     private let productDetailDispatchGroup = DispatchGroup()

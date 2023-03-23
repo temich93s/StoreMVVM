@@ -3,13 +3,15 @@
 
 import SwiftUI
 
-///
+/// Создание Color из Hex
 extension Color {
+    // MARK: - Initializers
+
     init(hex: String) {
         let hex = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
+        let alpha, red, green, blue: UInt64
         var int: UInt64 = 0
         Scanner(string: hex).scanHexInt64(&int)
-        let alpha, red, green, blue: UInt64
         switch hex.count {
         case 3:
             (alpha, red, green, blue) = (255, (int >> 8) * 17, (int >> 4 & 0xF) * 17, (int & 0xF) * 17)
@@ -20,7 +22,6 @@ extension Color {
         default:
             (alpha, red, green, blue) = (1, 1, 1, 0)
         }
-
         self.init(
             .sRGB,
             red: Double(red) / 255,

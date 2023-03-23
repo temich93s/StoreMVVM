@@ -5,6 +5,8 @@ import SwiftUI
 
 /// Домашняя страница с товарами
 struct HomeView: View {
+    let tabBarSelection: Int
+
     var body: some View {
         ZStack {
             BackgroundColorView()
@@ -29,6 +31,7 @@ struct HomeView: View {
                             recomendationListView(categoryName: "Brands", products: viewModel.brands, viewSize: .medium)
                         }
                         .padding(.horizontal)
+                        StoreTabBarView(selection: tabBarSelection)
                     }
                     VStack {
                         searchView
@@ -43,6 +46,8 @@ struct HomeView: View {
         .onTapGesture {
             UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
         }
+        .toolbar(.hidden)
+        .ignoresSafeArea(.keyboard)
     }
 
     // MARK: - Private Properties
@@ -75,11 +80,11 @@ struct HomeView: View {
     private var titleView: some View {
         HStack {
             Text("Trade buy")
-                .foregroundColor(Color("BlackTextColor"))
+                .foregroundColor(Color(NameColors.blackTextColor))
             Text("bata")
                 .foregroundColor(Color("StoreNameTextColor"))
         }
-        .font(Font.custom("Montserrat-Bold", size: 20))
+        .font(Font.custom(NameFonts.montserratBold, size: 20))
     }
 
     private var searchView: some View {
@@ -113,8 +118,8 @@ struct HomeView: View {
             HStack {
                 Button {} label: {
                     Text("Location")
-                        .font(Font.custom("Montserrat-Regular", size: 10))
-                        .foregroundColor(Color("DarkGrayTextColor"))
+                        .font(Font.custom(NameFonts.montserratRegular, size: 10))
+                        .foregroundColor(Color(NameColors.darkGrayTextColor))
                     Image("BottomChevron")
                 }
             }
@@ -197,25 +202,25 @@ struct HomeView: View {
                 Spacer()
                 if let category = product.category {
                     Text(category)
-                        .font(Font.custom("Montserrat-Bold", size: 9))
-                        .foregroundColor(Color("BlackTextColor"))
+                        .font(Font.custom(NameFonts.montserratBold, size: 9))
+                        .foregroundColor(Color(NameColors.blackTextColor))
                         .padding(.vertical, 3)
                         .padding(.horizontal, 6)
                         .background(
                             RoundedRectangle(cornerRadius: 10)
-                                .foregroundColor(Color("BackgroundCategoryColor"))
+                                .foregroundColor(Color(NameColors.backgroundCategoryColor))
                         )
                 }
                 if let name = product.name {
                     Text(name)
-                        .font(Font.custom("Montserrat-Bold", size: 11))
+                        .font(Font.custom(NameFonts.montserratBold, size: 11))
                         .foregroundColor(Color("WhiteTextColor"))
                         .multilineTextAlignment(.leading)
                         .frame(height: 30, alignment: .topLeading)
                 }
                 if let price = product.price {
                     Text("$ \(price, specifier: "%.2f")")
-                        .font(Font.custom("Montserrat-Bold", size: 9))
+                        .font(Font.custom(NameFonts.montserratBold, size: 9))
                         .foregroundColor(Color("WhiteTextColor"))
                 }
             }
@@ -260,7 +265,7 @@ struct HomeView: View {
                 Spacer()
                 if let discount = product.discount {
                     Text("\(discount, specifier: "%.0f")% off")
-                        .font(Font.custom("Montserrat-Bold", size: 10))
+                        .font(Font.custom(NameFonts.montserratBold, size: 10))
                         .foregroundColor(Color("WhiteTextColor"))
                         .padding(.vertical, 3)
                         .padding(.horizontal, 6)
@@ -278,13 +283,13 @@ struct HomeView: View {
     private func recomendationTitleView(name: String) -> some View {
         HStack {
             Text(name)
-                .font(Font.custom("Montserrat-Bold", size: 20))
+                .font(Font.custom(NameFonts.montserratBold, size: 20))
                 .foregroundColor(Color("RecomendationStoreTextColor"))
             Spacer()
             Button {} label: {
                 Text("View all")
-                    .font(Font.custom("Montserrat-Regular", size: 12))
-                    .foregroundColor(Color("DarkGrayTextColor"))
+                    .font(Font.custom(NameFonts.montserratRegular, size: 12))
+                    .foregroundColor(Color(NameColors.darkGrayTextColor))
             }
         }
     }
@@ -299,8 +304,8 @@ struct HomeView: View {
                     Image(category.categoryImageName)
                 }
                 Text(category.categoryName)
-                    .font(Font.custom("Montserrat-Regular", size: 10))
-                    .foregroundColor(Color("DarkGrayTextColor"))
+                    .font(Font.custom(NameFonts.montserratRegular, size: 10))
+                    .foregroundColor(Color(NameColors.darkGrayTextColor))
             }
             .frame(width: 65)
         }
@@ -309,6 +314,6 @@ struct HomeView: View {
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView()
+        HomeView(tabBarSelection: 0)
     }
 }

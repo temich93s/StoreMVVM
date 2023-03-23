@@ -5,15 +5,17 @@ import SwiftUI
 
 /// Координатор приложения
 class Coordinator: ObservableObject {
-    // MARK: - Constants
-
-    private enum Constants {
-        static var emptyText = ""
-    }
+    // MARK: - Public Properties
 
     @Published var path = NavigationPath()
 
-    func setupTabBar(index: Int) {
+    // MARK: - Public Properties
+
+    private let builder = Builder()
+
+    // MARK: - Public Methods
+
+    func pushFromTabBar(index: Int) {
         switch index {
         case 0:
             path.removeLast()
@@ -51,79 +53,23 @@ class Coordinator: ObservableObject {
     func build(viewName: ViewName) -> some View {
         switch viewName {
         case .logIn:
-            LogInView()
+            builder.makeLogInView()
         case .signIn:
-            SignInView()
+            builder.makeSignInView()
         case .homeDetail:
-            ZStack {
-                BackgroundColorView()
-                HomeDetailView()
-                VStack {
-                    Spacer()
-                    StoreTabBarView(selection: 0)
-                }
-            }
-            .toolbar(.hidden)
+            builder.makeHomeDetailView(tabBarSelection: 0)
         case .addToCard:
-            ZStack {
-                BackgroundColorView()
-                VStack {
-                    Spacer()
-                    Text("ADD TO CARD")
-                    Spacer()
-                    StoreTabBarView(selection: 0)
-                }
-            }
+            builder.makeAddToCardView(tabBarSelection: 0)
         case .home:
-            ZStack {
-                BackgroundColorView()
-                VStack {
-                    HomeView()
-                    Spacer()
-                    StoreTabBarView(selection: 0)
-                }
-            }
-            .toolbar(.hidden)
+            builder.makeHomeView(tabBarSelection: 0)
         case .heart:
-            ZStack {
-                BackgroundColorView()
-                VStack {
-                    Text(Constants.emptyText)
-                    Spacer()
-                    StoreTabBarView(selection: 1)
-                }
-            }
-            .toolbar(.hidden)
+            builder.makeHeartView(tabBarSelection: 1)
         case .basket:
-            ZStack {
-                BackgroundColorView()
-                VStack {
-                    Text(Constants.emptyText)
-                    Spacer()
-                    StoreTabBarView(selection: 2)
-                }
-            }
-            .toolbar(.hidden)
+            builder.makeBasketView(tabBarSelection: 2)
         case .message:
-            ZStack {
-                BackgroundColorView()
-                VStack {
-                    Text(Constants.emptyText)
-                    Spacer()
-                    StoreTabBarView(selection: 3)
-                }
-            }
-            .toolbar(.hidden)
+            builder.makeMessageView(tabBarSelection: 3)
         case .profile:
-            ZStack {
-                BackgroundColorView()
-                VStack {
-                    ProfileView()
-                    Spacer()
-                    StoreTabBarView(selection: 4)
-                }
-            }
-            .toolbar(.hidden)
+            builder.makeProfileView(tabBarSelection: 4)
         }
     }
 }

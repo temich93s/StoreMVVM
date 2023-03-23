@@ -3,7 +3,7 @@
 
 import SwiftUI
 
-/// Стили View
+/// Стили View и создание Image из Data
 extension View {
     // MARK: - Public Methods
 
@@ -33,8 +33,8 @@ struct RoundedGrayViewModifier: ViewModifier {
         content
             .frame(width: 290, height: 30)
             .multilineTextAlignment(.center)
-            .background(Color("BackgroundTextFieldColor"))
-            .font(Font.custom("Montserrat-Regular", size: 15))
+            .background(Color(NameColors.backgroundTextFieldColor))
+            .font(Font.custom(NameFonts.montserratRegular, size: 15))
             .cornerRadius(15)
     }
 }
@@ -47,15 +47,25 @@ struct RoundedBlueViewModifier: ViewModifier {
         content
             .frame(width: 290, height: 46)
             .multilineTextAlignment(.center)
-            .background(Color("BackgroundButtonColor"))
-            .foregroundColor(Color("ForegroundTextButtonColor"))
-            .font(Font.custom("Montserrat-Bold", size: 15))
+            .background(Color(NameColors.backgroundButtonColor))
+            .foregroundColor(Color(NameColors.foregroundTextButtonColor))
+            .font(Font.custom(NameFonts.montserratBold, size: 15))
             .cornerRadius(13)
     }
 }
 
-// Модификатор для изображения пользователя
+/// Модификатор для изображения пользователя
 struct UserImageViewModifier: ViewModifier {
+    // MARK: - Private Properties
+
+    private let size: CGFloat
+
+    // MARK: - Initializers
+
+    init(size: CGFloat) {
+        self.size = size
+    }
+
     // MARK: - Public Methods
 
     func body(content: Content) -> some View {
@@ -64,18 +74,8 @@ struct UserImageViewModifier: ViewModifier {
             .cornerRadius(size / 2)
             .overlay {
                 Circle()
-                    .stroke(Color("DarkGrayTextColor"), lineWidth: 1)
+                    .stroke(Color(NameColors.darkGrayTextColor), lineWidth: 1)
             }
             .padding(.all, 1)
     }
-
-    // MARK: - Initializers
-
-    init(size: CGFloat) {
-        self.size = size
-    }
-
-    // MARK: - Private Properties
-
-    private let size: CGFloat
 }

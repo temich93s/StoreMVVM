@@ -15,11 +15,12 @@ struct StoreTabBarView: View {
 
     var body: some View {
         ZStack {
+            Color.clear
             StoreBackgroundTabBarShape(cornerRadius: 28)
                 .fill(Color("TabBarBackgroundColor"))
             tabsView
         }
-        .frame(width: UIScreen.main.bounds.width, height: 70)
+        .frame(height: 70)
         .safeAreaInset(edge: .bottom, spacing: 0) {
             Color.clear
                 .frame(height: 0)
@@ -47,7 +48,7 @@ struct StoreTabBarView: View {
         HStack {
             ForEach(0 ..< tabBarImageNames.count) { index in
                 Button(action: {
-                    coordinator.setupTabBar(index: index)
+                    coordinator.pushFromTabBar(index: index)
                 }, label: {
                     HStack {
                         Spacer()

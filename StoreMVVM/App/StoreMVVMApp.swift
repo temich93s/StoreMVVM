@@ -5,7 +5,7 @@ import SwiftUI
 
 @main
 struct StoreMVVMApp: App {
-    @StateObject private var coreDataService = CoreDataService()
+    // MARK: - Public Properties
 
     var body: some Scene {
         WindowGroup {
@@ -13,4 +13,8 @@ struct StoreMVVMApp: App {
                 .environment(\.managedObjectContext, coreDataService.container.viewContext)
         }
     }
+
+    // MARK: - Private Properties
+
+    @StateObject private var coreDataService = CoreDataService()
 }

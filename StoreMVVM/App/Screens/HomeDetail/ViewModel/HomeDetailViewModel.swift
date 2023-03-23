@@ -4,18 +4,23 @@
 import SwiftUI
 
 /// Вью модель экрана регистрации
-final class HomeDetailViewModel: ObservableObject {
+final class HomeDetailViewModel: HomeDetailViewModelProtocol {
     // MARK: - Public Properties
 
     @Published var productDetail: ProductDetail?
-
     @Published var productCount = 0
-
     @Published var selectedColorIndex = 0
-
     @Published var selectedImageIndex = 0
 
-    var networkService = NetworkService()
+    // MARK: - Private Properties
+
+    private var networkService: NetworkServiceProtocol
+
+    // MARK: - Initializers
+
+    init(networkService: NetworkServiceProtocol) {
+        self.networkService = networkService
+    }
 
     // MARK: - Public Methods
 

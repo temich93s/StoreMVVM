@@ -5,7 +5,7 @@ import SwiftUI
 
 /// Вью координатора приложения
 struct CoordinatorView: View {
-    @StateObject private var coordinator = Coordinator()
+    // MARK: - Public Properties
 
     var body: some View {
         NavigationStack(path: $coordinator.path) {
@@ -16,6 +16,10 @@ struct CoordinatorView: View {
         }
         .environmentObject(coordinator)
     }
+
+    // MARK: - Private Properties
+
+    @StateObject private var coordinator = Coordinator()
 }
 
 struct CoordinatorView_Previews: PreviewProvider {

@@ -7,6 +7,8 @@ import Foundation
 enum ViewName: String, Identifiable {
     case logIn, signIn, home, heart, basket, message, profile, homeDetail, addToCard
 
+    // MARK: - Public Properties
+
     var id: String {
         rawValue
     }

@@ -3,7 +3,7 @@
 
 import SwiftUI
 
-/// Вью модель экрана регистрации
+/// Вью модель экрана c описанием продукта
 final class HomeDetailViewModel: HomeDetailViewModelProtocol {
     // MARK: - Public Properties
 

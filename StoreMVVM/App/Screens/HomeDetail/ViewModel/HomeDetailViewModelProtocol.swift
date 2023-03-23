@@ -3,11 +3,12 @@
 
 import Foundation
 
+/// Протокол вью модели экрана c описанием продукта
 protocol HomeDetailViewModelProtocol: ObservableObject {
-    var productDetail: ProductDetail? { get }
-    var productCount: Int { get }
-    var selectedColorIndex: Int { get }
-    var selectedImageIndex: Int { get }
+    var productDetail: ProductDetail? { get set }
+    var productCount: Int { get set }
+    var selectedColorIndex: Int { get set }
+    var selectedImageIndex: Int { get set }
 
     func fetchData()
     func increaseProductCount()

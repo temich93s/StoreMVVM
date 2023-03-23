@@ -3,22 +3,19 @@
 
 import SwiftUI
 
-/// Вью модель экрана регистрации
-final class HomeViewModel: ObservableObject {
+/// Вью модель экрана cо списком продуктов
+final class HomeViewModel: HomeViewModelProtocol {
     // MARK: - Public Properties
 
     @Published var flashSales: [Product] = []
     @Published var lastDeals: [Product] = []
     @Published var brands: [Product] = []
-    @Published var searchText = ""
     @Published var listWords: [String] = []
-
-    var networkService = StoreNetworkService()
+    @Published var searchText = ""
 
     // MARK: - Private Properties
 
     private let fetchGroup = DispatchGroup()
-    private var timer = Timer()
 
     private let mockBrands = [
         Product(
@@ -46,6 +43,16 @@ final class HomeViewModel: ObservableObject {
             imageData: UIImage(named: "PS4Gamepad")?.pngData()
         )
     ]
+
+    private var networkService: NetworkServiceProtocol
+
+    private var timer = Timer()
+
+    // MARK: - Initializers
+
+    init(networkService: NetworkServiceProtocol) {
+        self.networkService = networkService
+    }
 
     // MARK: - Public Methods
 

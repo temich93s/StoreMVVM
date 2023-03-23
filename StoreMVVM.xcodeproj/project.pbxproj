@@ -42,6 +42,9 @@
 		AAB5F89929CC25BB001DD248 /* NetworkServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB5F89829CC25BB001DD248 /* NetworkServiceProtocol.swift */; };
 		AAB5F89F29CC2816001DD248 /* Builder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB5F89E29CC2816001DD248 /* Builder.swift */; };
 		AAB5F8A129CC28F1001DD248 /* HomeDetailViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB5F8A029CC28F1001DD248 /* HomeDetailViewModelProtocol.swift */; };
+		AAB5F8A329CC46B4001DD248 /* LogInViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB5F8A229CC46B4001DD248 /* LogInViewModelProtocol.swift */; };
+		AAB5F8A529CC4BB8001DD248 /* SignInViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB5F8A429CC4BB8001DD248 /* SignInViewModelProtocol.swift */; };
+		AAB5F8A729CC4EAA001DD248 /* HomeViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB5F8A629CC4EAA001DD248 /* HomeViewModelProtocol.swift */; };
 		AAB683AD29C2DA2C007BB79E /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB683AC29C2DA2C007BB79E /* SignInViewModel.swift */; };
 		AAC04DF129C6AD4F0024E267 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC04DF029C6AD4F0024E267 /* HomeView.swift */; };
 		AAC04DF429C6AE630024E267 /* BackgroundColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAC04DF329C6AE630024E267 /* BackgroundColorView.swift */; };
@@ -89,6 +92,9 @@
 		AAB5F89829CC25BB001DD248 /* NetworkServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceProtocol.swift; sourceTree = "<group>"; };
 		AAB5F89E29CC2816001DD248 /* Builder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Builder.swift; sourceTree = "<group>"; };
 		AAB5F8A029CC28F1001DD248 /* HomeDetailViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDetailViewModelProtocol.swift; sourceTree = "<group>"; };
+		AAB5F8A229CC46B4001DD248 /* LogInViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewModelProtocol.swift; sourceTree = "<group>"; };
+		AAB5F8A429CC4BB8001DD248 /* SignInViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModelProtocol.swift; sourceTree = "<group>"; };
+		AAB5F8A629CC4EAA001DD248 /* HomeViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModelProtocol.swift; sourceTree = "<group>"; };
 		AAB683AC29C2DA2C007BB79E /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
 		AAC04DF029C6AD4F0024E267 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		AAC04DF329C6AE630024E267 /* BackgroundColorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundColorView.swift; sourceTree = "<group>"; };
@@ -113,6 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				AA0A4DA129C6CD6E008A1107 /* HomeViewModel.swift */,
+				AAB5F8A629CC4EAA001DD248 /* HomeViewModelProtocol.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -176,6 +183,7 @@
 			isa = PBXGroup;
 			children = (
 				AA82CFFA29C40B49001164C3 /* LogInViewModel.swift */,
+				AAB5F8A229CC46B4001DD248 /* LogInViewModelProtocol.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -435,6 +443,7 @@
 			isa = PBXGroup;
 			children = (
 				AAB683AC29C2DA2C007BB79E /* SignInViewModel.swift */,
+				AAB5F8A429CC4BB8001DD248 /* SignInViewModelProtocol.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -625,15 +634,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				AAB5F88E29CC145D001DD248 /* BasketView.swift in Sources */,
+				AAB5F8A729CC4EAA001DD248 /* HomeViewModelProtocol.swift in Sources */,
 				AA71EAA029C9B1E800C63FE7 /* Products.swift in Sources */,
 				AA0A4DA229C6CD6E008A1107 /* HomeViewModel.swift in Sources */,
 				AAB15BE029C03F2B00412F34 /* SignInView.swift in Sources */,
 				AAB5F88029CBDAE5001DD248 /* ListWords.swift in Sources */,
 				AA9FE95929CAE3DB00F9ECEB /* HomeDetailViewModel.swift in Sources */,
+				AAB5F8A529CC4BB8001DD248 /* SignInViewModelProtocol.swift in Sources */,
 				AA8C08AF29C5529300600C8C /* ProfileView.swift in Sources */,
 				AAB5F89529CC1B65001DD248 /* Constant.swift in Sources */,
 				AA8C08B629C5559300600C8C /* StoreBackgroundTabBarShape.swift in Sources */,
 				AAEC5ED329C2C3F9007066E9 /* CoordinatorView.swift in Sources */,
+				AAB5F8A329CC46B4001DD248 /* LogInViewModelProtocol.swift in Sources */,
 				AA9FE95B29CAEB7700F9ECEB /* Color+Extension.swift in Sources */,
 				AA71EA9B29C971BE00C63FE7 /* StoreNetworkService.swift in Sources */,
 				AAB5F88429CC11EB001DD248 /* AddToCardView.swift in Sources */,

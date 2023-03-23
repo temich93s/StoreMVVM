@@ -4,8 +4,12 @@
 import SwiftUI
 
 /// Домашняя страница с товарами
-struct HomeView: View {
+struct HomeView<ViewModel>: View where ViewModel: HomeViewModelProtocol {
+    // MARK: - Public Properties
+
     let tabBarSelection: Int
+
+    @StateObject var viewModel: ViewModel
 
     var body: some View {
         ZStack {
@@ -19,16 +23,20 @@ struct HomeView: View {
                         listCategoryView(categories: mockCategories)
                         ScrollView(showsIndicators: false) {
                             recomendationListView(
-                                categoryName: "Latest deals",
+                                categoryName: Constants.latestDealsText,
                                 products: viewModel.lastDeals,
                                 viewSize: .medium
                             )
                             recomendationListView(
-                                categoryName: "Flash sale",
+                                categoryName: Constants.flashSaleText,
                                 products: viewModel.flashSales,
                                 viewSize: .large
                             )
-                            recomendationListView(categoryName: "Brands", products: viewModel.brands, viewSize: .medium)
+                            recomendationListView(
+                                categoryName: Constants.brandsText,
+                                products: viewModel.brands,
+                                viewSize: .medium
+                            )
                         }
                         .padding(.horizontal)
                         StoreTabBarView(selection: tabBarSelection)
@@ -54,12 +62,10 @@ struct HomeView: View {
 
     @EnvironmentObject private var coordinator: Coordinator
 
-    @StateObject private var viewModel = HomeViewModel()
-
     private var headerView: some View {
         HStack(alignment: .top) {
             Button(action: {}, label: {
-                Image("HorizontalLine")
+                Image(NameImages.horizontalLine)
                     .resizable()
             })
             .frame(width: 20, height: 20)
@@ -79,10 +85,10 @@ struct HomeView: View {
 
     private var titleView: some View {
         HStack {
-            Text("Trade buy")
+            Text(Constants.tradeBuyText)
                 .foregroundColor(Color(NameColors.blackTextColor))
-            Text("bata")
-                .foregroundColor(Color("StoreNameTextColor"))
+            Text(Constants.bataText)
+                .foregroundColor(Color(NameColors.storeNameTextColor))
         }
         .font(Font.custom(NameFonts.montserratBold, size: 20))
     }
@@ -90,7 +96,7 @@ struct HomeView: View {
     private var searchView: some View {
         VStack(spacing: 0) {
             ZStack(alignment: .trailing) {
-                TextField("What are you looking for ?", text: $viewModel.searchText)
+                TextField(Constants.lookingText, text: $viewModel.searchText)
                     .onChange(of: viewModel.searchText) { newValue in
                         print(newValue)
                         viewModel.deferredSearchTextAction(text: newValue)
@@ -98,7 +104,7 @@ struct HomeView: View {
                 Button(action: {
                     viewModel.searchTextAction(text: viewModel.searchText)
                 }, label: {
-                    Image("Search")
+                    Image(NameImages.search)
                         .padding(.trailing, 15)
                 })
             }
@@ -112,15 +118,15 @@ struct HomeView: View {
 
     private var userProfileView: some View {
         VStack {
-            Image("ProfileImageMock")
+            Image(NameImages.profileImageMock)
                 .resizable()
                 .userImageStyle(size: 30)
             HStack {
                 Button {} label: {
-                    Text("Location")
+                    Text(Constants.locationText)
                         .font(Font.custom(NameFonts.montserratRegular, size: 10))
                         .foregroundColor(Color(NameColors.darkGrayTextColor))
-                    Image("BottomChevron")
+                    Image(NameImages.bottomChevron)
                 }
             }
         }
@@ -214,14 +220,14 @@ struct HomeView: View {
                 if let name = product.name {
                     Text(name)
                         .font(Font.custom(NameFonts.montserratBold, size: 11))
-                        .foregroundColor(Color("WhiteTextColor"))
+                        .foregroundColor(Color(NameColors.whiteTextColor))
                         .multilineTextAlignment(.leading)
                         .frame(height: 30, alignment: .topLeading)
                 }
                 if let price = product.price {
-                    Text("$ \(price, specifier: "%.2f")")
+                    Text("\(Constants.dollarText) \(price, specifier: "%.2f")")
                         .font(Font.custom(NameFonts.montserratBold, size: 9))
-                        .foregroundColor(Color("WhiteTextColor"))
+                        .foregroundColor(Color(NameColors.whiteTextColor))
                 }
             }
             .padding(.all, 5)
@@ -242,13 +248,13 @@ struct HomeView: View {
                 if viewSize == .large {
                     GrayCircleButtonView(
                         diameter: viewSize.darkHeartButtonDiameter,
-                        imageName: "DarkHeart",
+                        imageName: NameImages.darkHeart,
                         action: { heartButtonAction() }
                     )
                 }
                 GrayCircleButtonView(
                     diameter: viewSize.plusButtonDiameter,
-                    imageName: "Plus",
+                    imageName: NameImages.plus,
                     action: { plusButtonAction() }
                 )
             }
@@ -259,19 +265,19 @@ struct HomeView: View {
     private func profileImageView(product: Product) -> some View {
         VStack {
             HStack {
-                Image("ProfileImageMock")
+                Image(NameImages.profileImageMock)
                     .resizable()
                     .userImageStyle(size: 30)
                 Spacer()
                 if let discount = product.discount {
-                    Text("\(discount, specifier: "%.0f")% off")
+                    Text("\(discount, specifier: "%.0f")\(Constants.offText)")
                         .font(Font.custom(NameFonts.montserratBold, size: 10))
-                        .foregroundColor(Color("WhiteTextColor"))
+                        .foregroundColor(Color(NameColors.whiteTextColor))
                         .padding(.vertical, 3)
                         .padding(.horizontal, 6)
                         .background(
                             RoundedRectangle(cornerRadius: 10)
-                                .foregroundColor(Color("SaleBackgroundColor"))
+                                .foregroundColor(Color(NameColors.saleBackgroundColor))
                         )
                 }
             }
@@ -284,10 +290,10 @@ struct HomeView: View {
         HStack {
             Text(name)
                 .font(Font.custom(NameFonts.montserratBold, size: 20))
-                .foregroundColor(Color("RecomendationStoreTextColor"))
+                .foregroundColor(Color(NameColors.recomendationStoreTextColor))
             Spacer()
             Button {} label: {
-                Text("View all")
+                Text(Constants.viewAllText)
                     .font(Font.custom(NameFonts.montserratRegular, size: 12))
                     .foregroundColor(Color(NameColors.darkGrayTextColor))
             }
@@ -299,7 +305,7 @@ struct HomeView: View {
             VStack {
                 ZStack {
                     Circle()
-                        .fill(Color("LightGrayCircleColor"))
+                        .fill(Color(NameColors.lightGrayCircleColor))
                         .frame(width: 40)
                     Image(category.categoryImageName)
                 }
@@ -309,11 +315,5 @@ struct HomeView: View {
             }
             .frame(width: 65)
         }
-    }
-}
-
-struct HomeView_Previews: PreviewProvider {
-    static var previews: some View {
-        HomeView(tabBarSelection: 0)
     }
 }

@@ -8,11 +8,15 @@ final class Builder {
     // MARK: - Public Methods
 
     func makeLogInView() -> some View {
-        LogInView()
+        let viewModel = LogInViewModel()
+        let view = LogInView(viewModel: viewModel)
+        return view
     }
 
     func makeSignInView() -> some View {
-        SignInView()
+        let viewModel = SignInViewModel()
+        let view = SignInView(viewModel: viewModel)
+        return view
     }
 
     func makeHomeDetailView(tabBarSelection: Int) -> some View {
@@ -27,7 +31,10 @@ final class Builder {
     }
 
     func makeHomeView(tabBarSelection: Int) -> some View {
-        HomeView(tabBarSelection: tabBarSelection)
+        let networkService = StoreNetworkService()
+        let viewModel = HomeViewModel(networkService: networkService)
+        let view = HomeView(tabBarSelection: tabBarSelection, viewModel: viewModel)
+        return view
     }
 
     func makeHeartView(tabBarSelection: Int) -> some View {

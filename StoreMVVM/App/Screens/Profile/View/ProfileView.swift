@@ -5,16 +5,12 @@ import PhotosUI
 import SwiftUI
 
 /// Экран профиля пользователя
-struct ProfileView: View {
-    enum MenuType {
-        case link
-        case empty
-        case balance(Int)
-    }
-
+struct ProfileView<ViewModel>: View where ViewModel: ProfileViewModelProtocol {
     // MARK: - Public Methods
 
     let tabBarSelection: Int
+
+    @StateObject var viewModel: ViewModel
 
     var body: some View {
         ZStack {
@@ -39,19 +35,18 @@ struct ProfileView: View {
     @EnvironmentObject private var coordinator: Coordinator
 
     @State private var selectedPhotosPickerItem: PhotosPickerItem?
-    @State private var selectedPhotosPickerData: Data?
 
     private var headerView: some View {
         HStack {
             Button(action: {
                 coordinator.popToRoot()
             }, label: {
-                Image("Back")
+                Image(NameImages.back)
                     .resizable()
             })
             .frame(width: 20, height: 20)
             Spacer()
-            Text("Profile")
+            Text(Constants.profileText)
                 .font(Font.custom(NameFonts.montserratBold, size: 20))
                 .foregroundColor(Color(NameColors.blackTextColor))
             Spacer()
@@ -63,10 +58,10 @@ struct ProfileView: View {
     }
 
     private var profileImageView: some View {
-        guard let selectedPhotosPickerData,
+        guard let selectedPhotosPickerData = viewModel.selectedPhotosPickerData,
               let uiImage = UIImage(data: selectedPhotosPickerData)
         else {
-            return Image("ProfileImageMock")
+            return Image(NameImages.profileImageMock)
                 .resizable()
                 .userImageStyle(size: 60)
         }
@@ -77,37 +72,35 @@ struct ProfileView: View {
 
     private var profilePhotosPickerView: some View {
         PhotosPicker(selection: $selectedPhotosPickerItem, matching: .images, photoLibrary: .shared()) {
-            Text("Change photo")
+            Text(Constants.changePhotoText)
                 .font(Font.custom(NameFonts.montserratRegular, size: 10))
                 .foregroundColor(Color(NameColors.darkGrayTextColor))
         }
         .onChange(of: selectedPhotosPickerItem) { newPhotosPickerItem in
             Task {
                 if let data = try? await newPhotosPickerItem?.loadTransferable(type: Data.self) {
-                    selectedPhotosPickerData = data
+                    viewModel.selectedPhotosPickerData = data
                 }
             }
         }
     }
 
     private var userNameTextView: some View {
-        Text("Satria Adhi Pradana")
-            .foregroundColor(Color("ProfileNameTextColor"))
+        Text(Constants.satriaAdhiPradanaText)
+            .foregroundColor(Color(NameColors.profileNameTextColor))
             .font(Font.custom(NameFonts.montserratBold, size: 20))
             .padding(.vertical, 10)
     }
 
     private var uploadItemButtonView: some View {
-        Button {
-            // action
-        } label: {
+        Button {} label: {
             HStack {
                 Spacer()
-                Image("Upload")
+                Image(NameImages.upload)
                     .resizable()
                     .frame(width: 10, height: 12.5)
                 Spacer()
-                Text("Upload item")
+                Text(Constants.uploadItemText)
                 Spacer()
                 Spacer()
                     .frame(width: 10)
@@ -120,19 +113,14 @@ struct ProfileView: View {
 
     private var profileMenuListView: some View {
         VStack {
-            // TODO: создать массив и forEach
-            menuProfileView(menuText: "Trade store", imageName: "Card", menuType: .link, buttonAction: {})
-            menuProfileView(menuText: "Payment method", imageName: "Card", menuType: .link, buttonAction: {})
-            menuProfileView(menuText: "Balance", imageName: "Card", menuType: .balance(1593), buttonAction: {})
-            menuProfileView(menuText: "Trade history", imageName: "Card", menuType: .link, buttonAction: {})
-            menuProfileView(menuText: "Restore purchase", imageName: "Restore", menuType: .link, buttonAction: {})
-            menuProfileView(menuText: "Help", imageName: "Help", menuType: .empty, buttonAction: {})
-            menuProfileView(
-                menuText: "Log out",
-                imageName: "LogOut",
-                menuType: .empty,
-                buttonAction: { coordinator.popToRoot() }
-            )
+            ForEach(0 ..< viewModel.menuItems.count, id: \.self) { index in
+                menuProfileView(
+                    menuText: viewModel.menuItems[index].menuText,
+                    imageName: viewModel.menuItems[index].imageName,
+                    menuType: viewModel.menuItems[index].menuType,
+                    buttonAction: index == 6 ? { coordinator.popToRoot() } : {}
+                )
+            }
         }
     }
 
@@ -150,33 +138,27 @@ struct ProfileView: View {
             HStack {
                 ZStack {
                     Circle()
-                        .fill(Color("LightGrayCircleColor"))
+                        .fill(Color(NameColors.lightGrayCircleColor))
                         .frame(width: 40)
                     Image(imageName)
                 }
                 Text(menuText)
-                    .foregroundColor(Color("ProfileMenuTextColor"))
+                    .foregroundColor(Color(NameColors.profileMenuTextColor))
                     .font(Font.custom(NameFonts.montserratRegular, size: 15))
                 Spacer()
                 switch menuType {
                 case .link:
-                    Image("Chevron")
+                    Image(NameImages.chevron)
                 case .empty:
                     EmptyView()
                 case let .balance(balance):
-                    Text("$ \(balance)")
-                        .foregroundColor(Color("ProfileMenuTextColor"))
+                    Text("\(Constants.dollarText) \(balance)")
+                        .foregroundColor(Color(NameColors.profileMenuTextColor))
                         .font(Font.custom(NameFonts.montserratRegular, size: 15))
                 }
             }
         }
         .padding(.vertical, 5)
         .padding(.horizontal, 40)
-    }
-}
-
-struct ProfileView_Previews: PreviewProvider {
-    static var previews: some View {
-        ProfileView(tabBarSelection: 4)
     }
 }
